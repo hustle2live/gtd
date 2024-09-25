@@ -2,8 +2,8 @@
 
 #### Backend:
 
-Express, Typescript, Postresql, Prisma ORM, Passport. </br>
+Express, Typescript, Postresql, Prisma ORM, JWT.
 
 #### Frontend:
 
-React, Typescript, Zustand, React Final Form, Blueprint, Emotion CSS.
+React, Typescript, Zustand, React Hook Form, Blueprint, Emotion CSS.
