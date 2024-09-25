@@ -36,6 +36,11 @@ export const flexColumn = css`
 	flex-direction: column;
 `;
 
+export const flexCenter = css`
+	justify-content: center;
+	height: 100vh;
+`;
+
 export const rootWrapper = css`
 	${flexColumn};
 	position: relative;

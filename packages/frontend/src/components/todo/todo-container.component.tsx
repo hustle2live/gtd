@@ -7,7 +7,12 @@ import { Search } from '@blueprintjs/icons';
 
 import { todosStore } from '~store/todos.store';
 import { TodoListElement } from './list-view/todo-list.component';
-import { stylesDefault, stylesMobile } from './todo.styles';
+import {
+	stylesDefault,
+	stylesMobile,
+	tabButton,
+	tabsContainer,
+} from './todo.styles';
 import { TodoSlider } from './slider-view/todo-slider.component';
 import { FilterType } from '~shared/types/filters/filters-type';
 import { useMediaQuery } from 'react-responsive';
@@ -50,7 +55,7 @@ export const TodoContainer: React.FunctionComponent<Props> = ({
 		fetchTodos(filters);
 	};
 
-	const handleSearch = (value = search) => {
+	const handleSearch = (value = search): (() => void) => {
 		const timeoutId = setTimeout(() => {
 			filters.search = value;
 			handleTabsSelector();
@@ -83,12 +88,25 @@ export const TodoContainer: React.FunctionComponent<Props> = ({
 			<Tabs
 				id="TabsExample"
 				selectedTabId={tabSelected}
+				className={tabsContainer}
 				onChange={(TabId: TABS) => setTabSelected(TabId)}
 			>
-				<Tab id={TABS.ALL} title={TABS.ALL} />
-				<Tab id={TABS.PRIVATE} title={TABS.PRIVATE} />
-				<Tab id={TABS.PUBLIC} title={TABS.PUBLIC} />
-				<Tab id={TABS.COMPLETED} title={TABS.COMPLETED} />
+				<Tab className={tabButton} id={TABS.ALL} title={TABS.ALL} />
+				<Tab
+					className={tabButton}
+					id={TABS.PRIVATE}
+					title={TABS.PRIVATE}
+				/>
+				<Tab
+					className={tabButton}
+					id={TABS.PUBLIC}
+					title={TABS.PUBLIC}
+				/>
+				<Tab
+					className={tabButton}
+					id={TABS.COMPLETED}
+					title={TABS.COMPLETED}
+				/>
 			</Tabs>
 		);
 	};

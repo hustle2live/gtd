@@ -41,6 +41,7 @@ const colors = Object.freeze({
 const themeColors = Object.freeze({
 	primary: '#004b80',
 	additional: '#215db0',
+	additional_light: '#2d72d2',
 	surfaceTint: '#30628C',
 	onPrimary: '#FFFFFF',
 	primaryContainer: '#08466F',

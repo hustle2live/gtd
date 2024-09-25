@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { todoService } from '~/api/services/todo.service';
 import { RouterProvider } from '~router/router-provider';
-import { ITodoType } from '~shared/types/todo/todo.types';
 import { ITodosStore, todosStore } from '~store/todos.store';
 import { ROUTER_KEYS } from '~shared/keys';
 import { Header } from '~/components/header/header.component';
@@ -54,7 +53,6 @@ const App = (): React.ReactNode => {
 									isAuthed={logedIn}
 									redirectPath={ROUTER_KEYS.ROOT}
 								>
-									<Header />
 									<Dashboard getTodosHandler={requestTodos} />
 								</ProtectedRoute>
 							),

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Table2, Column, Cell, RenderMode } from '@blueprintjs/table';
+import { Table2, Column, Cell } from '@blueprintjs/table';
 
 import { todoService } from '~/api/services/todo.service';
 import { ITodoType } from '~shared/types/todo/todo.types';
@@ -7,11 +7,15 @@ import { TodoActions } from '../action-buttons/todo-actions.component';
 
 import Pagination from '../pagination/todo-pagination.component';
 
+import { useMediaQuery } from 'react-responsive';
+import { ScreenParams } from '~shared/constants/screen-queries';
+
 import '@blueprintjs/core/lib/css/blueprint.css';
 import '@blueprintjs/table/lib/css/table.css';
 import '@blueprintjs/icons/lib/css/blueprint-icons.css';
 
-import { paginationStyles, tableStyles } from '../todo.styles';
+import { tableStyles } from '../todo.styles';
+import { getColumnSize } from '~shared/constants/table-sizes';
 
 type Props = {
 	todos: ITodoType[];
@@ -29,10 +33,12 @@ const TodoTable: React.FunctionComponent<Props> = ({
 	handleItemsPerPage,
 }: Props) => {
 	const initialRowsCount = 10;
-
-	useEffect(() => {
-		handleItemsPerPage(initialRowsCount);
-	}, []);
+	const SCREEN_SIZES = {
+		M: useMediaQuery(ScreenParams.DesktopM),
+		L: useMediaQuery(ScreenParams.DesktopL),
+		XL: useMediaQuery(ScreenParams.DesktopXL),
+		XXL: useMediaQuery(ScreenParams.Desktop4K),
+	};
 
 	const PaginationComponent = new Pagination({
 		totalCount: 3,
@@ -40,61 +46,64 @@ const TodoTable: React.FunctionComponent<Props> = ({
 		onPaginate: handlePageNumber,
 	});
 
+	useEffect(() => {
+		handleItemsPerPage(initialRowsCount);
+	}, []);
+
+	const BlueprintTable = (): JSX.Element => (
+		<Table2
+			className={tableStyles}
+			numRows={initialRowsCount}
+			columnWidths={getColumnSize(SCREEN_SIZES)}
+			defaultRowHeight={40}
+			cellRendererDependencies={todos}
+			enableFocusedCell={true}
+		>
+			<Column
+				name="Title"
+				cellRenderer={(rowIndex) => (
+					<Cell>{todos[rowIndex]?.title ?? ''}</Cell>
+				)}
+			/>
+
+			<Column
+				name="Description"
+				cellRenderer={(rowIndex) => (
+					<Cell>{todos[rowIndex]?.text ?? ''}</Cell>
+				)}
+			/>
+
+			<Column
+				name="Completed"
+				cellRenderer={(rowIndex) => (
+					<Cell>
+						{!todos[rowIndex] ? (
+							''
+						) : (
+							<TodoActions
+								todo={todos[rowIndex]}
+								isCompleted={todos[rowIndex]?.isCompleted}
+								isAuthorized={
+									todos[rowIndex]?.userId === userId
+								}
+								onComplete={() => {
+									const todoItem = todos[rowIndex];
+									todoService.updateTodo(todoItem?.id, {
+										isCompleted: !todoItem?.isCompleted,
+									});
+								}}
+							/>
+						)}
+					</Cell>
+				)}
+			/>
+		</Table2>
+	);
+
 	return (
 		<div>
-			<Table2
-				className={tableStyles}
-				numRows={initialRowsCount}
-				columnWidths={[240, 450, 180]}
-				defaultRowHeight={40}
-				cellRendererDependencies={todos}
-				enableFocusedCell={true}
-				forceRerenderOnSelectionChange={true}
-				enableColumnResizing={false}
-				renderMode={RenderMode.BATCH}
-			>
-				<Column
-					name="Title"
-					cellRenderer={(rowIndex) => (
-						<Cell>{todos[rowIndex]?.title ?? ''}</Cell>
-					)}
-				/>
-
-				<Column
-					name="Description"
-					cellRenderer={(rowIndex) => (
-						<Cell>{todos[rowIndex]?.text ?? ''}</Cell>
-					)}
-				/>
-
-				<Column
-					name="Completed"
-					cellRenderer={(rowIndex) => (
-						<Cell>
-							{!todos[rowIndex] ? (
-								''
-							) : (
-								<TodoActions
-									todo={todos[rowIndex]}
-									isCompleted={todos[rowIndex]?.isCompleted}
-									isAuthorized={
-										todos[rowIndex]?.userId === userId
-									}
-									onComplete={() => {
-										const todoItem = todos[rowIndex];
-										todoService.updateTodo(todoItem?.id, {
-											isCompleted: !todoItem?.isCompleted,
-										});
-									}}
-								/>
-							)}
-						</Cell>
-					)}
-				/>
-			</Table2>
-			<div className={paginationStyles}>
-				{PaginationComponent.render()}
-			</div>
+			<BlueprintTable />
+			{PaginationComponent.render()}
 		</div>
 	);
 };
