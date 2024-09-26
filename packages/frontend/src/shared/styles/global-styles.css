@@ -98,3 +98,21 @@ h3 {
 		font-size: 24px;
 	}
 }
+
+@media screen and (max-width: 360px) {
+	html,
+	body,
+	p,
+	a,
+	button,
+	div,
+	.bp5-tab-list {
+		font-size: 12px;
+	}
+
+	h1,
+	h2,
+	h3 {
+		font-size: 18px;
+	}
+}

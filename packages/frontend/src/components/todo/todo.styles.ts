@@ -35,6 +35,42 @@ export const tabsContainer = css`
 		background-color: ${themeColors.additional_light} !important;
 		color: #fff !important;
 	}
+
+	@media screen and (max-width: 1060px) {
+		line-height: 18px;
+		height: 28px;
+
+		.bp5-tab {
+			font-size: 16px !important;
+			line-height: 18px;
+			padding: 4px 18px;
+			height: auto;
+		}
+	}
+
+	@media screen and (max-width: 1020px) {
+		height: 24px;
+
+		.bp5-tab {
+			font-size: 13px !important;
+			line-height: 16px;
+			padding: 3px 16px;
+		}
+	}
+
+	@media screen and (max-width: 460px) {
+		height: 22px;
+
+		.bp5-tab-list {
+			max-width: 100%;
+		}
+
+		.bp5-tab {
+			font-size: 11px !important;
+			line-height: 14px;
+			padding: 3px 14px;
+		}
+	}
 `;
 
 export const tabButton = css`
@@ -92,6 +128,28 @@ export const stylesDefault = {
 		@media screen and (min-width: 1920px) {
 			max-width: 1390px;
 		}
+
+		@media screen and (max-width: 1020px) {
+			.bp5-input-group input,
+			.bp5-input-group input::placeholder {
+				font-size: 12px;
+				line-height: 18px;
+				padding-bottom: 2px;
+				height: 25px;
+			}
+
+			.bp5-input-group {
+			}
+			.search-icon {
+				margin: 6px !important;
+			}
+			.bp5-button.bp5-minimal,
+			.search-icon svg {
+				margin: 0;
+				height: 14px !important;
+				width: 14px !important;
+			}
+		}
 	`,
 	tabs: css`
 		width: 100%;
@@ -113,7 +171,6 @@ export const stylesMobile = {
 		align-items: center;
 		justify-content: center;
 		max-width: 900px;
-		min-height: 80vh;
 		margin: auto;
 		gap: 20px;
 		max-width: 90vw;
@@ -122,10 +179,37 @@ export const stylesMobile = {
 		overflow: hidden;
 		height: 100%;
 		flex-wrap: nowrap;
+
+		@media screen and (max-width: 460px) {
+			.bp5-input-group input,
+			.bp5-input-group input::placeholder {
+				font-size: 11px;
+				height: 22px;
+				padding-top: 1px;
+				padding-bottom: 1px;
+			}
+
+			.bp5-input-group {
+				margin: 0;
+				width: 160px;
+				font-size: 11px;
+			}
+
+			.search-icon {
+				margin: 6px !important;
+			}
+
+			.bp5-button.bp5-minimal,
+			.search-icon svg {
+				font-size: 11px;
+				margin: 0;
+				height: 12px !important;
+				width: 12px !important;
+			}
+		}
 	`,
 
 	tabs: css`
-		min-width: 100vw;
 		width: auto;
 		display: flex;
 		justify-content: space-between;
@@ -134,6 +218,11 @@ export const stylesMobile = {
 		flex-wrap: wrap;
 		background: #ffffff;
 		z-index: 99;
+
+		@media screen and (max-width: 460px) {
+			flex-direction: column-reverse;
+			margin: 0;
+		}
 	`,
 
 	list: css`

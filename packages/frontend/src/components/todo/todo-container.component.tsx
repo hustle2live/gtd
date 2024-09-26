@@ -83,7 +83,7 @@ export const TodoContainer: React.FunctionComponent<Props> = ({
 		}
 	};
 
-	const InputTabBar = (): JSX.Element => {
+	const TodoTabBar = (): JSX.Element => {
 		return (
 			<Tabs
 				id="TabsExample"
@@ -129,10 +129,15 @@ export const TodoContainer: React.FunctionComponent<Props> = ({
 			className={isMobile ? stylesMobile.wrapper : stylesDefault.wrapper}
 		>
 			<div className={isMobile ? stylesMobile.tabs : stylesDefault.tabs}>
-				<InputTabBar />
+				<TodoTabBar />
 				<div className="bp5-input-group">
 					<InputGroup
-						leftIcon={<Search onClick={handleTabsSelector} />}
+						leftIcon={
+							<Search
+								className="search-icon"
+								onClick={handleTabsSelector}
+							/>
+						}
 						id="search"
 						type="text"
 						placeholder="search"
