@@ -7,7 +7,7 @@ import { Header } from '~/components/header/header.component';
 import { RootPage } from '~/components/root-page/root-page';
 import { AuthScreen } from '~/components/auth/auth-screen';
 import { Dashboard } from '~/components/dashboard/dashboard.component';
-import { TodoSingleView } from '~/components/todo/single-view/todo-single-view';
+import { TodoSingleView } from '~/components/todo/single-view/single-view.component';
 import { ProtectedRoute } from '~router/protected-route.util';
 import { AuthConfirmPage } from '~/components/auth/auth-confirm.component';
 import { ProfilePage } from '~/components/profile/profile-page.component';
@@ -97,7 +97,7 @@ const App = (): React.ReactNode => {
 									isAuthed={logedIn}
 									redirectPath={ROUTER_KEYS.ROOT}
 								>
-									<Header />
+									<Header hideProfile={true} />
 									<ProfilePage />
 								</ProtectedRoute>
 							),

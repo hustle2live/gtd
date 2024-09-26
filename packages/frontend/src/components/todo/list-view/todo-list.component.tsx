@@ -7,17 +7,15 @@ import { mockStyles } from '../todo.styles';
 type TProps = {
 	data: ITodoType[];
 	userId: number;
-	horizontal?: boolean;
 };
 
 const TodoListElement: React.FunctionComponent<TProps> = ({
 	data,
 	userId,
-	horizontal = false,
 }): JSX.Element => {
 	return (
-		<div className={mockStyles(horizontal).listWrapper}>
-			<ul className={mockStyles(horizontal).ulStyles}>
+		<div className={mockStyles.listWrapper}>
+			<ul className={mockStyles.ulStyles}>
 				{data.map((item) => (
 					<li key={item.id}>
 						<TodoViewElement

@@ -1,21 +1,30 @@
 import { css } from '@emotion/css';
+import { colors, themeColors, themeFonts } from '~shared/styles';
+
+export const singleViewContainer = css`
+	display: flex;
+	gap: 50px;
+	min-height: 90vh;
+	height: auto;
+	flex-direction: column;
+	justify-content: center;
+	align-items: left;
+	padding: 20px;
+`;
 
 export const stylesWrapper = css`
 	display: flex;
-	align-items: center;
-	justify-content: flex-start;
-	height: 40px;
-	gap: 4px;
-
-	&.singleview {
-		border: 1px solid yellow;
-	}
+	flex-direction: column;
+	align-content: space-between;
+	gap: 10px;
+	margin: 40px 0;
 
 	@media screen and (max-width: 460px) {
 		width: 100%;
 		justify-content: space-between;
 	}
 `;
+
 export const stylesButton = css`
 	width: 64px;
 	font-size: 14px;
@@ -42,17 +51,18 @@ export const stylesButton = css`
 
 export const switchGroup = css`
 	display: flex;
-	align-items: center;
-	margin: auto 0;
-	height: 100%;
+	justify-content: space-between;
+	margin: 0px 60px;
+
+	@media screen and (max-width: 768px) {
+		margin: 0px 40px;
+	}
 	@media screen and (max-width: 460px) {
-		height: 18px;
-		width: auto;
+		margin: 0px;
 	}
 `;
+
 export const switchElem = css`
-	justify-self: center;
-	align-self: center;
 	margin: auto 0;
 	@media screen and (max-width: 460px) {
 		height: auto;
@@ -76,7 +86,11 @@ export const switchElem = css`
 	}
 `;
 export const moderate = css`
+	position: absolute;
+	top: 5%;
+	right: 5%;
 	opacity: 0.5;
+
 	&:hover {
 		opacity: 1;
 	}
@@ -105,11 +119,6 @@ export const moderate = css`
 	}
 
 	@media screen and (max-width: 460px) {
-		position: absolute;
-		top: 10px;
-		right: 10px;
-		opacity: 0.5;
-
 		&.bp5-button {
 			min-height: unset;
 			padding: 2px 0;
@@ -120,5 +129,19 @@ export const moderate = css`
 			height: 12px;
 			width: 12px;
 		}
+	}
+`;
+
+export const actionLabel = css`
+	font-size: 12px !important;
+	font-weight: 400;
+	margin: 20px 0 10px;
+
+	@media screen and (max-width: 1020px) {
+		font-size: 15px;
+	}
+	@media screen and (max-width: 460px) {
+		font-size: 13px;
+		letter-spacing: 0.5px;
 	}
 `;

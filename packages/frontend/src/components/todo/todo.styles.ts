@@ -78,33 +78,23 @@ export const tabButton = css`
 	padding: 0px 25px;
 `;
 
-export const mockStyles = (
-	horizontal: boolean = false,
-): {
-	listWrapper: string;
-	ulStyles: string;
-} => {
-	const mockUpDirection = horizontal ? 'row' : 'column';
-	const maxWidth = horizontal ? '80vw' : '100vw';
+export const mockStyles = {
+	listWrapper: css`
+		position: relative;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+	`,
 
-	return {
-		listWrapper: css`
-			position: relative;
-			overflow: hidden;
-			display: flex;
-			flex-direction: ${mockUpDirection};
-		`,
-
-		ulStyles: css`
-			display: flex;
-			flex-wrap: nowrap;
-			flex-direction: ${mockUpDirection};
-			overflow: scroll;
-			position: relative;
-			max-width: ${maxWidth};
-			max-height: 80vh;
-		`,
-	};
+	ulStyles: css`
+		display: flex;
+		flex-wrap: nowrap;
+		flex-direction: column;
+		overflow: scroll;
+		position: relative;
+		max-width: 100%;
+		max-height: 80vh;
+	`,
 };
 
 export const stylesDefault = {
@@ -181,6 +171,9 @@ export const stylesMobile = {
 		flex-wrap: nowrap;
 
 		@media screen and (max-width: 460px) {
+			max-width: 100%;
+			margin: 0 20px;
+
 			.bp5-input-group input,
 			.bp5-input-group input::placeholder {
 				font-size: 11px;
@@ -228,7 +221,6 @@ export const stylesMobile = {
 	list: css`
 		margin-top: 0px;
 		max-height: 88vh;
-		overflow: scroll;
 
 		& ul::-webkit-scrollbar {
 			width: 0px !important;

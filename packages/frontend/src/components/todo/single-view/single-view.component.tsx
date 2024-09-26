@@ -1,10 +1,13 @@
-import { Button, Intent } from '@blueprintjs/core';
 import React from 'react';
+import { Button, Intent } from '@blueprintjs/core';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ROUTER_KEYS } from '~shared/keys';
 import { ITodosStore, todosStore } from '~store/todos.store';
 import { TodoViewElement } from './todo-view.component';
-import { mg20, mw85 } from '../todo.styles';
+import { mw85 } from '../todo.styles';
+import { buttonBack } from './todo-view.styles';
+import { Header } from '~/components/header/header.component';
+import { singleViewContainer } from './single-view.styles';
 
 const TodoSingleView: React.FunctionComponent = (): JSX.Element => {
 	const { todoId } = useParams();
@@ -19,19 +22,24 @@ const TodoSingleView: React.FunctionComponent = (): JSX.Element => {
 	}
 
 	return (
-		<div className={mg20}>
-			<TodoViewElement
-				todo={todoById}
-				editable={todoById.userId === userId}
-			/>
-			<div className={mw85}>
-				<Button
-					text="Back"
-					intent={Intent.WARNING}
-					onClick={() => navigate(ROUTER_KEYS.DASHBOARD)}
+		<>
+			<Header />
+			<div className={singleViewContainer}>
+				<TodoViewElement
+					todo={todoById}
+					editable={todoById.userId === userId}
+					singleview={true}
 				/>
+				<div className={mw85}>
+					<Button
+						className={buttonBack}
+						text="Back"
+						intent={Intent.WARNING}
+						onClick={() => navigate(ROUTER_KEYS.DASHBOARD)}
+					/>
+				</div>
 			</div>
-		</div>
+		</>
 	);
 };
 

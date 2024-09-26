@@ -12,6 +12,7 @@ type IButtonProps = {
 	disabled?: boolean;
 	extraButtonStyles?: string;
 	icon?: React.ReactNode;
+	hidden?: boolean;
 };
 
 const Button: React.FunctionComponent<IButtonProps> = ({
@@ -22,6 +23,7 @@ const Button: React.FunctionComponent<IButtonProps> = ({
 	disabled,
 	extraButtonStyles,
 	icon,
+	hidden,
 }) => {
 	const isDisabled = Boolean(loading ?? disabled);
 
@@ -35,6 +37,7 @@ const Button: React.FunctionComponent<IButtonProps> = ({
 
 	return (
 		<button
+			hidden={hidden}
 			disabled={isDisabled}
 			type={type}
 			onClick={handleClick}

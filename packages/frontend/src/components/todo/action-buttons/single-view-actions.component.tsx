@@ -12,49 +12,37 @@ import {
 	switchGroup,
 	switchElem,
 	moderate,
-} from './todo-actions.styles';
+	actionLabel,
+} from '../single-view/single-view.styles';
 import { todosStore } from '~store/todos.store';
+import { flexBetween } from '~/components/root-page/root.styles';
 
 interface IActionProps {
 	todo: ITodoType;
 	isCompleted: boolean;
 	isAuthorized?: boolean;
-	isPublic?: boolean;
+	isPublic: boolean;
 	onTodoChange?: () => void;
 	onComplete?: () => void;
 	isMobile?: boolean;
 }
 
-const TodoActions: React.FunctionComponent<IActionProps> = ({
+const SingleViewActions: React.FunctionComponent<IActionProps> = ({
 	isCompleted,
+	isPublic,
 	onTodoChange,
 	isAuthorized = false,
 	todo,
 }: IActionProps): JSX.Element => {
 	const navigate = useNavigate();
-
 	const changeTodoState = todosStore(({ updateTodo }) => updateTodo);
 
 	return (
 		<div className={stylesWrapper}>
-			<div>
-				<Blueprint.Button
-					className={stylesButton}
-					text={'View'}
-					onClick={() => navigate(`/todo/${todo?.id}`)}
-					disabled={!isAuthorized}
-				/>
-				<Blueprint.Button
-					className={stylesButton}
-					text={'Delete'}
-					disabled={!isAuthorized}
-					onClick={() => {
-						if (confirm('Are you want to delete todo ?'))
-							todoService.deleteTodo(todo?.id);
-					}}
-				/>
-			</div>
 			<div className={switchGroup}>
+				<Blueprint.Label className={actionLabel}>
+					Complete
+				</Blueprint.Label>
 				<Blueprint.Switch
 					className={switchElem}
 					width={40}
@@ -70,14 +58,34 @@ const TodoActions: React.FunctionComponent<IActionProps> = ({
 						}
 					}}
 				/>
-				<Blueprint.Button
-					className={moderate}
-					icon={<Draw size={16} />}
-					onClick={onTodoChange}
+			</div>
+			<div className={switchGroup}>
+				<Blueprint.Label className={actionLabel}>
+					Private
+				</Blueprint.Label>
+				<Blueprint.Switch
+					className={switchElem}
+					width={40}
+					height={40}
+					checked={!isPublic}
 					disabled={!isAuthorized}
+					onChange={async () => {
+						const newTodo = await todoService.updateTodo(todo?.id, {
+							isPublic: !todo?.isPublic,
+						});
+						if (newTodo) {
+							changeTodoState(newTodo);
+						}
+					}}
 				/>
 			</div>
+			<Blueprint.Button
+				className={moderate}
+				icon={<Draw size={16} />}
+				onClick={onTodoChange}
+				disabled={!isAuthorized}
+			/>
 		</div>
 	);
 };
-export { TodoActions };
+export { SingleViewActions };

@@ -1,17 +1,29 @@
 import React, { useState } from 'react';
-import { Button, Card, Elevation, InputGroup } from '@blueprintjs/core';
+import {
+	Button,
+	Card,
+	Elevation,
+	InputGroup,
+	Intent,
+	TextArea,
+} from '@blueprintjs/core';
 import { todosStore } from '~store/todos.store';
 import { useNavigate } from 'react-router-dom';
 import { ROUTER_KEYS } from '~shared/keys';
 import { userService } from '~/api/services/user.service';
 import {
+	buttonGroup,
 	cardStyles,
 	inputStyles,
+	profileDescription,
 	profileImage,
+	userEmailStyles,
 	wrapperStyles,
 } from './profile.styles';
 
 import Image from '../../assets/Bender-1.jpg';
+import { flexCenter, flexColumn } from '../root-page/root.styles';
+import { themeColors } from '~shared/styles';
 
 const ProfilePage = (): JSX.Element => {
 	const { userName, userEmail, userId, updateUser } = todosStore(
@@ -42,71 +54,85 @@ const ProfilePage = (): JSX.Element => {
 	};
 
 	return (
-		<Card
-			className={wrapperStyles}
-			interactive={true}
-			elevation={Elevation.TWO}
-		>
-			<h2>
-				<a href="#">Profile page</a>
-			</h2>
-			<div className={profileImage}>
-				<img src={Image} alt="profile image" />
-			</div>
-			<p>
-				<span>
-					Lorem ipsum dolor sit amet consectetur adipisicing elit.
-					Blanditiis id, rem impedit ea temporibus optio quos omnis
-					illo nostrum deserunt. Provident quasi quam tenetur, eveniet
-					maiores minus itaque possimus totam?
-				</span>
-			</p>
-
+		<div className={`${flexColumn} ${flexCenter}`}>
 			<Card
-				className={cardStyles}
-				interactive={false}
-				elevation={Elevation.ZERO}
+				className={wrapperStyles}
+				interactive={true}
+				elevation={Elevation.TWO}
 			>
-				<p>Profile name: </p>
-				<h5>{userName}</h5>
-				<hr />
-				<br />
-				<InputGroup
-					hidden={!editable}
-					className={inputStyles}
-					value={name}
-					onChange={(e) => setName(e.target.value)}
-				/>
-				<p>Profile email: </p>
-				<h5>{userEmail}</h5>
-				<hr />
-				<InputGroup
-					hidden={!editable}
-					className={inputStyles}
-					value={email}
-					onChange={(e) => setEmail(e.target.value)}
-				/>
+				<h4>
+					<span>Profile page</span>
+				</h4>
+				<div className={profileImage}>
+					<img src={Image} alt="profile image" />
+				</div>
+				<p>
+					<p>About me:</p>
+					<TextArea
+						readOnly={!editable}
+						className={profileDescription}
+						fill={true}
+						defaultValue="Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis id, rem impedit ea temporibus optio quos omnis illo nostrum deserunt. Provident quasi quam tenetur, eveniet maiores minus itaque possimus totam?"
+					></TextArea>
+				</p>
+
+				<Card
+					className={cardStyles}
+					interactive={false}
+					elevation={Elevation.ZERO}
+				>
+					<p>Profile name: </p>
+					<h5>{userName}</h5>
+					<hr />
+					<InputGroup
+						hidden={!editable}
+						className={inputStyles}
+						value={name}
+						onChange={(e) => setName(e.target.value)}
+					/>
+					<p className={userEmailStyles}>Profile email: </p>
+					<h5>{userEmail}</h5>
+					<hr />
+					<InputGroup
+						hidden={!editable}
+						className={inputStyles}
+						value={email}
+						onChange={(e) => setEmail(e.target.value)}
+					/>
+				</Card>
+				<div className={buttonGroup}>
+					<Button
+						hidden={editable}
+						onClick={() => navigate(ROUTER_KEYS.DASHBOARD)}
+					>
+						Back
+					</Button>
+
+					<Button
+						hidden={editable}
+						onClick={() => {
+							setEditable(!editable);
+						}}
+					>
+						Edit profile
+					</Button>
+					<Button
+						hidden={!editable}
+						onClick={() => setEditable(false)}
+						intent={Intent.WARNING}
+					>
+						Cancel
+					</Button>
+					<Button
+						hidden={!editable}
+						onClick={handleEditProfile}
+						intent={Intent.PRIMARY}
+					>
+						Save
+					</Button>
+				</div>
 			</Card>
-
-			<Button onClick={() => navigate(ROUTER_KEYS.DASHBOARD)}>
-				Back
-			</Button>
-
-			<Button
-				hidden={editable}
-				onClick={() => {
-					setEditable(!editable);
-				}}
-			>
-				Edit profile
-			</Button>
-			<Button hidden={!editable} onClick={() => setEditable(false)}>
-				Cancel
-			</Button>
-			<Button hidden={!editable} onClick={handleEditProfile}>
-				Save
-			</Button>
-		</Card>
+		</div>
 	);
 };
 
