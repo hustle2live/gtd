@@ -172,7 +172,7 @@ export const stylesMobile = {
 		justify-content: center;
 		max-width: 900px;
 		margin: auto;
-		gap: 20px;
+		gap: 10px;
 		max-width: 90vw;
 		flex-wrap: wrap;
 		justify-content: flex-start;
