@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
 	Button,
 	Card,
@@ -17,7 +17,6 @@ import {
 
 import { flexCenter, flexColumn } from '../root-page/root.styles';
 
-import { ITodoType } from '~shared/types/todo/todo.types';
 import { todoService } from '~/api/services/todo.service';
 import { todosStore } from '~store/todos.store';
 
@@ -32,21 +31,23 @@ const EditTodoWrapper = ({
 	editTodoId = null,
 	setEditTodoHandler,
 }: Props): JSX.Element => {
-	const todo: ITodoType | undefined = todosStore(({ todos }) =>
-		todos.find((todo) => todo.id === editTodoId),
-	);
+	const userId = todosStore(({ userId }) => userId);
+	const todo = !createNew
+		? todosStore(({ todos }) =>
+				todos.find((todo) => todo.id === editTodoId),
+			)
+		: null;
 
 	const { title, text } = todo ?? { title: '', text: '' };
 
 	const [todoTitle, setTodoTitle] = useState(title);
 	const [todoText, setTodoText] = useState(text);
 
-	const { userId, id } = todo;
 	const { createTodo, updateTodo } = todoService;
 
 	const [action, actionId] = createNew
 		? [createTodo.bind(todoService), userId]
-		: [updateTodo.bind(todoService), id];
+		: [updateTodo.bind(todoService), todo.id];
 
 	const handleEditTodo = async (): Promise<void> => {
 		if (confirm('Are you sure to save changes ?')) {

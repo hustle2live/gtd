@@ -18,6 +18,7 @@ import { FilterType } from '~shared/types/filters/filters-type';
 import { useMediaQuery } from 'react-responsive';
 import { ScreenParams } from '~shared/constants/screen-queries';
 import { EditTodoWrapper } from '../add-todo/add-todo.component';
+import { showEditWrapper } from '../add-todo/add-todo.controller';
 
 enum TABS {
 	ALL = 'all',
@@ -139,16 +140,16 @@ export const TodoContainer: React.FunctionComponent<Props> = ({
 
 	useEffect(handleSearch, [search]);
 
-	const showEditWrapper = (): JSX.Element => {
-		return !editTodoId ? (
-			<></>
-		) : (
-			<EditTodoWrapper
-				editTodoId={editTodoId}
-				setEditTodoHandler={setEditTodoId}
-			/>
-		);
-	};
+	// const showEditWrapper = (): JSX.Element => {
+	// 	return !editTodoId ? (
+	// 		<></>
+	// 	) : (
+	// 		<EditTodoWrapper
+	// 			editTodoId={editTodoId}
+	// 			setEditTodoHandler={setEditTodoId}
+	// 		/>
+	// 	);
+	// };
 
 	return (
 		<div
@@ -182,7 +183,7 @@ export const TodoContainer: React.FunctionComponent<Props> = ({
 			<div className={isMobile ? stylesMobile.list : ''}>
 				<TodosScreenResponsive />
 			</div>
-			{showEditWrapper()}
+			{showEditWrapper(editTodoId, setEditTodoId)}
 		</div>
 	);
 };

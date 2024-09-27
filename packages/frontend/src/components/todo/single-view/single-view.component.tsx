@@ -9,6 +9,7 @@ import { buttonBack } from './todo-view.styles';
 import { Header } from '~/components/header/header.component';
 import { singleViewContainer } from './single-view.styles';
 import { EditTodoWrapper } from '~/components/add-todo/add-todo.component';
+import { showEditWrapper } from '~/components/add-todo/add-todo.controller';
 
 const TodoSingleView: React.FunctionComponent = (): JSX.Element => {
 	const { todoId } = useParams();
@@ -25,16 +26,16 @@ const TodoSingleView: React.FunctionComponent = (): JSX.Element => {
 		return <></>;
 	}
 
-	const showEditWrapper = (): JSX.Element => {
-		return !editTodoId ? (
-			<></>
-		) : (
-			<EditTodoWrapper
-				editTodoId={editTodoId}
-				setEditTodoHandler={setEditTodoId}
-			/>
-		);
-	};
+	// const showEditWrapper = (): JSX.Element => {
+	// 	return !editTodoId ? (
+	// 		<></>
+	// 	) : (
+	// 		<EditTodoWrapper
+	// 			editTodoId={editTodoId}
+	// 			setEditTodoHandler={setEditTodoId}
+	// 		/>
+	// 	);
+	// };
 
 	return (
 		<>
@@ -54,7 +55,7 @@ const TodoSingleView: React.FunctionComponent = (): JSX.Element => {
 						onClick={() => navigate(ROUTER_KEYS.DASHBOARD)}
 					/>
 				</div>
-				{showEditWrapper()}
+				{showEditWrapper(editTodoId, setEditTodoId)}
 			</div>
 		</>
 	);

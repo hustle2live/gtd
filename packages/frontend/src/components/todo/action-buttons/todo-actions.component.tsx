@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import * as Blueprint from '@blueprintjs/core';
 import { ITodoType } from '~shared/types/todo/todo.types';
@@ -14,7 +14,6 @@ import {
 	moderate,
 } from './todo-actions.styles';
 import { todosStore } from '~store/todos.store';
-import { EditTodoWrapper } from '~/components/add-todo/add-todo.component';
 
 interface IActionProps {
 	todo: ITodoType;
