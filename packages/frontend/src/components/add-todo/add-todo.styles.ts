@@ -21,8 +21,6 @@ export const inputStyles = css`
 `;
 
 export const wrapperStyles = css`
-	// max-width: 600px;
-	// width: 600px;
 	margin: 0 auto;
 
 	h4 {

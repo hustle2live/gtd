@@ -22,7 +22,6 @@ import { todoService } from '~/api/services/todo.service';
 import { todosStore } from '~store/todos.store';
 
 type Props = {
-	// onClick?: (todoData?: Partial<ITodoType>) => void;
 	createNew?: boolean;
 	editTodoId: number | null;
 	setEditTodoHandler: (id: number | null) => void;
@@ -37,13 +36,7 @@ const EditTodoWrapper = ({
 		todos.find((todo) => todo.id === editTodoId),
 	);
 
-	console.log('editTodoId : ___ ', editTodoId);
-
-	console.log(todo);
-
 	const { title, text } = todo ?? { title: '', text: '' };
-
-	console.log(title, text);
 
 	const [todoTitle, setTodoTitle] = useState(title);
 	const [todoText, setTodoText] = useState(text);
