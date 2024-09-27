@@ -1,5 +1,8 @@
 import { Response, Request } from 'express';
-import { todoServiceDatabase, type TodoService } from '@/services/todo.service';
+import {
+	todoServiceDatabase,
+	type TodoService,
+} from '../services/todo.service';
 import { HttpStatusCodes as HttpCode } from '@/libs/constants/status-code';
 
 import { TodoType } from '@/libs/types/todos.type';

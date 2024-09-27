@@ -1,10 +1,13 @@
 {
 	"name": "cgs-backend",
 	"version": "1.0.0",
+	"_moduleAliases": {
+		"@": "dist"
+	},
 	"scripts": {
 		"build": "rimraf build && npx tsc",
 		"prestart": "npm run build",
-		"start": "node dist/app.js",
+		"start": "ts-node -r tsconfig-paths/register dist/app.js",
 		"preserve": "npm run build",
 		"serve": "concurrently \"tsc -w\" \"tsc-alias -w\" \"nodemon dist/app.js\" ",
 		"lint": "npx eslint ./src",
@@ -29,7 +32,8 @@
 		"passport": "^0.7.0",
 		"passport-http-bearer": "^1.0.1",
 		"passport-jwt": "^4.0.1",
-		"rimraf": "^5.0.5"
+		"rimraf": "^5.0.5",
+		"tsconfig-paths": "^4.2.0"
 	},
 	"devDependencies": {
 		"@types/bcrypt": "^5.0.2",

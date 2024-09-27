@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { ApiPATH } from '../../libs/constants/api-path';
 
-import { TodoActions } from '@/controllers/todo.service-controller';
+import { TodoActions } from '../../controllers/todo.actions';
 
 import { todoValidationSchema as TodoSchema } from '@/libs/validation-schema/todo';
 import { TodoValidationMiddleware as Middleware } from '@/middleware/todo.middleware';
