@@ -9,6 +9,8 @@ import HttpService from './http.service';
 import { createUserModel, UserModel } from '../models/user.model';
 import { API_KEYS, API_PARAM_KEYS } from '~shared/keys';
 
+type ResponseMessage = { message: string };
+
 class UserService extends HttpService {
 	constructor() {
 		super();
@@ -50,14 +52,14 @@ class UserService extends HttpService {
 		}
 	}
 
-	async register(user: IUserRegisterDto): Promise<{ message: string }> {
+	async register(user: IUserRegisterDto): Promise<ResponseMessage> {
 		try {
 			const { data } = await this.post({
 				url: API_KEYS.REGISTER,
 				data: user,
 			});
 
-			return data;
+			return data as ResponseMessage;
 		} catch (error) {
 			console.error(error);
 		}
@@ -85,7 +87,7 @@ class UserService extends HttpService {
 
 	async passwordReset(
 		user: Pick<IUserRegisterDto, 'email'>,
-	): Promise<{ message: string } | null> {
+	): Promise<ResponseMessage | null> {
 		try {
 			const { data } = await this.post({
 				url: API_KEYS.RESET_PASSWORD_REQUEST,
@@ -96,7 +98,7 @@ class UserService extends HttpService {
 				return null;
 			}
 
-			return data as { message: string };
+			return data as ResponseMessage;
 		} catch (error) {
 			console.error(error);
 		}
@@ -106,7 +108,7 @@ class UserService extends HttpService {
 		email,
 		token,
 		password = null,
-	}: IResetUserData): Promise<{ message: string } | null> {
+	}: IResetUserData): Promise<ResponseMessage | null> {
 		try {
 			const additional = password
 				? `&${API_PARAM_KEYS.PASSWORD}${password}`
@@ -118,7 +120,7 @@ class UserService extends HttpService {
 				url: `${endpoint}?${API_PARAM_KEYS.TOKEN}${token}&${API_PARAM_KEYS.EMAIL}${email}${additional}`,
 			});
 
-			return data as { message: string };
+			return data as ResponseMessage;
 		} catch (error) {
 			console.error(error);
 		}
