@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table2, Column, Cell } from '@blueprintjs/table';
 
 import { todoService } from '~/api/services/todo.service';
@@ -18,7 +18,7 @@ import { tableStyles } from '../todo.styles';
 import { getColumnSize } from '~shared/constants/table-sizes';
 
 type Props = {
-	todos: ITodoType[];
+	todosData: ITodoType[];
 	userId: number;
 	pageNumber: number;
 	handlePageNumber: (x: number) => void;
@@ -27,13 +27,15 @@ type Props = {
 };
 
 const TodoTable: React.FunctionComponent<Props> = ({
-	todos,
+	todosData,
 	userId,
 	pageNumber,
 	handlePageNumber,
 	handleItemsPerPage,
 	setEditTodoHandler,
 }: Props) => {
+	const [todos, setTodos] = useState(todosData);
+
 	const initialRowsCount = 10;
 	const SCREEN_SIZES = {
 		M: useMediaQuery(ScreenParams.DesktopM),
@@ -51,6 +53,10 @@ const TodoTable: React.FunctionComponent<Props> = ({
 	useEffect(() => {
 		handleItemsPerPage(initialRowsCount);
 	}, []);
+
+	useEffect(() => {
+		setTodos(todosData);
+	}, [todosData]);
 
 	const BlueprintTable = (): JSX.Element => (
 		<Table2

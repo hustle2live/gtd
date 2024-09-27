@@ -8,7 +8,6 @@ import { mw85 } from '../todo.styles';
 import { buttonBack } from './todo-view.styles';
 import { Header } from '~/components/header/header.component';
 import { singleViewContainer } from './single-view.styles';
-import { EditTodoWrapper } from '~/components/add-todo/add-todo.component';
 import { showEditWrapper } from '~/components/add-todo/add-todo.controller';
 
 const TodoSingleView: React.FunctionComponent = (): JSX.Element => {
@@ -25,17 +24,6 @@ const TodoSingleView: React.FunctionComponent = (): JSX.Element => {
 	if (!userId || !todoById) {
 		return <></>;
 	}
-
-	// const showEditWrapper = (): JSX.Element => {
-	// 	return !editTodoId ? (
-	// 		<></>
-	// 	) : (
-	// 		<EditTodoWrapper
-	// 			editTodoId={editTodoId}
-	// 			setEditTodoHandler={setEditTodoId}
-	// 		/>
-	// 	);
-	// };
 
 	return (
 		<>

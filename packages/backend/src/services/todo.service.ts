@@ -41,6 +41,7 @@ class TodoService {
 			where: {
 				...filters,
 			},
+			orderBy: { title: 'asc' },
 			...intake,
 		});
 		return userTodos;

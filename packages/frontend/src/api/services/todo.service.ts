@@ -77,9 +77,8 @@ class TodoService extends HttpService {
 			if (!data) {
 				return null;
 			}
-			console.log(data);
 
-			// addTodoCallback(data as ITodoType);
+			addTodoCallback(data as ITodoType);
 
 			return data as ITodoType;
 		} catch (error) {

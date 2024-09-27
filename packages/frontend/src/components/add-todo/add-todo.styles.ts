@@ -8,6 +8,7 @@ export const editContainer = css`
 	top: 0;
 	margin: 0;
 	transform: translate(0%, 0%);
+	z-index: 99;
 `;
 
 export const inputStyles = css`

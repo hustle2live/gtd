@@ -49,7 +49,7 @@ export const todosStore = create<ITodosStore>()(
 				})),
 			addTodo: (data): void =>
 				set((state) => ({
-					todos: { ...state.todos, data },
+					todos: [...state.todos, data],
 				})),
 			deleteTodo: (id): void =>
 				set((state) => ({

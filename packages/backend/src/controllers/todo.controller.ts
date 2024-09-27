@@ -84,15 +84,18 @@ export class TodoController {
 	async createTodo(req: Request, res: Response): Promise<void> {
 		const todoBody = req.body;
 		const userId = Number(req.query.userId);
+
 		const newTodo: TodoType | null = await this.todoService.create(
 			userId,
 			todoBody,
 		);
+
 		if (!newTodo) {
 			res.status(HttpCode.INTERNAL_SERVER_ERROR).json({
 				message: 'Can not create todo',
 			});
 		}
+
 		res.status(HttpCode.OK).send(newTodo);
 	}
 

@@ -20,10 +20,12 @@ export const TodoValidationMiddleware = <T>(
 	): Promise<void> => {
 		try {
 			const requestBody = req.body;
+
 			const isValid = schema.validate(requestBody);
 			if (isValid.error) {
 				throw Error(isValid.error.message);
 			}
+
 			next();
 		} catch (error) {
 			res.status(HttpStatusCodes.BAD_REQUEST).json({

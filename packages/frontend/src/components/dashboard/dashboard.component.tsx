@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { todosStore } from '~store/todos.store';
 import { TodoContainer } from '../todo/todo-container.component';
 import { FilterType } from '~shared/types/filters/filters-type';
@@ -17,6 +17,7 @@ const Dashboard: React.FunctionComponent<Props> = ({
 	getTodosHandler,
 }: Props): JSX.Element => {
 	const myTodos = todosStore(({ todos }) => todos);
+
 	const [editTodoId, setEditTodoId] = useState<number | null>(null);
 
 	return (

@@ -17,7 +17,6 @@ import { TodoSlider } from './slider-view/todo-slider.component';
 import { FilterType } from '~shared/types/filters/filters-type';
 import { useMediaQuery } from 'react-responsive';
 import { ScreenParams } from '~shared/constants/screen-queries';
-import { EditTodoWrapper } from '../add-todo/add-todo.component';
 import { showEditWrapper } from '../add-todo/add-todo.controller';
 
 enum TABS {
@@ -89,7 +88,7 @@ export const TodoContainer: React.FunctionComponent<Props> = ({
 				return (
 					<TodoTable
 						setEditTodoHandler={setEditTodoId}
-						todos={data}
+						todosData={data}
 						userId={currentUser}
 						pageNumber={pageNumber}
 						handlePageNumber={setPageNumber}
@@ -140,21 +139,12 @@ export const TodoContainer: React.FunctionComponent<Props> = ({
 
 	useEffect(handleSearch, [search]);
 
-	// const showEditWrapper = (): JSX.Element => {
-	// 	return !editTodoId ? (
-	// 		<></>
-	// 	) : (
-	// 		<EditTodoWrapper
-	// 			editTodoId={editTodoId}
-	// 			setEditTodoHandler={setEditTodoId}
-	// 		/>
-	// 	);
-	// };
-
 	return (
 		<div
 			className={isMobile ? stylesMobile.wrapper : stylesDefault.wrapper}
 		>
+			{showEditWrapper(editTodoId, setEditTodoId)}
+
 			<div className={isMobile ? stylesMobile.tabs : stylesDefault.tabs}>
 				<TodoTabBar />
 				<div className="bp5-input-group">
@@ -183,7 +173,6 @@ export const TodoContainer: React.FunctionComponent<Props> = ({
 			<div className={isMobile ? stylesMobile.list : ''}>
 				<TodosScreenResponsive />
 			</div>
-			{showEditWrapper(editTodoId, setEditTodoId)}
 		</div>
 	);
 };
