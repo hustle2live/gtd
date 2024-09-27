@@ -23,6 +23,7 @@ type Props = {
 	pageNumber: number;
 	handlePageNumber: (x: number) => void;
 	handleItemsPerPage: (x: number) => void;
+	setEditTodoHandler: (id: number | null) => void;
 };
 
 const TodoTable: React.FunctionComponent<Props> = ({
@@ -31,6 +32,7 @@ const TodoTable: React.FunctionComponent<Props> = ({
 	pageNumber,
 	handlePageNumber,
 	handleItemsPerPage,
+	setEditTodoHandler,
 }: Props) => {
 	const initialRowsCount = 10;
 	const SCREEN_SIZES = {
@@ -92,6 +94,7 @@ const TodoTable: React.FunctionComponent<Props> = ({
 										isCompleted: !todoItem?.isCompleted,
 									});
 								}}
+								setEditTodoHandler={setEditTodoHandler}
 							/>
 						)}
 					</Cell>

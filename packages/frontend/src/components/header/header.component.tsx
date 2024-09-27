@@ -9,10 +9,8 @@ import { todosStore } from '~store/todos.store';
 import { useNavigate } from 'react-router-dom';
 import { ROUTER_KEYS } from '~shared/keys';
 
-const Header: React.FunctionComponent = ({
+const Header: React.FunctionComponent<{ hideProfile?: boolean }> = ({
 	hideProfile = false,
-}: {
-	hideProfile?: boolean;
 }) => {
 	const logOut = todosStore((state) => state.onLogout);
 	const navigate = useNavigate();

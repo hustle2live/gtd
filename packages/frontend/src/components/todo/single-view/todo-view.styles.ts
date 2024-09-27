@@ -49,8 +49,11 @@ const title = css`
 	font-family: ${themeFonts.primary.fontFamily};
 	font-size: 20px;
 	font-weight: 600;
-	text-transform: capitalize;
 	margin-bottom: 20px;
+
+	&:first-letter {
+		text-transform: uppercase;
+	}
 
 	&.singleView {
 		font-size: 24px;
@@ -82,9 +85,11 @@ const description = css`
 	}
 
 	.text {
-		text-transform: capitalize;
 		font-size: 14px;
 		font-weight: 400;
+		&:first-letter {
+			text-transform: uppercase;
+		}
 	}
 
 	@media screen and (max-width: 1020px) {

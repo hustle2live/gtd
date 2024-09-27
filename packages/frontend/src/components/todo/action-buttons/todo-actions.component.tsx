@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import * as Blueprint from '@blueprintjs/core';
 import { ITodoType } from '~shared/types/todo/todo.types';
@@ -14,6 +14,7 @@ import {
 	moderate,
 } from './todo-actions.styles';
 import { todosStore } from '~store/todos.store';
+import { EditTodoWrapper } from '~/components/add-todo/add-todo.component';
 
 interface IActionProps {
 	todo: ITodoType;
@@ -23,17 +24,25 @@ interface IActionProps {
 	onTodoChange?: () => void;
 	onComplete?: () => void;
 	isMobile?: boolean;
+	setEditTodoHandler: (id: number | null) => void;
 }
 
 const TodoActions: React.FunctionComponent<IActionProps> = ({
 	isCompleted,
-	onTodoChange,
 	isAuthorized = false,
 	todo,
+	setEditTodoHandler,
 }: IActionProps): JSX.Element => {
 	const navigate = useNavigate();
 
 	const changeTodoState = todosStore(({ updateTodo }) => updateTodo);
+
+	const handleTodoUpdate = async (todoData: Partial<ITodoType>) => {
+		const newTodo = await todoService.updateTodo(todo.id, todoData);
+		if (newTodo) {
+			changeTodoState(newTodo);
+		}
+	};
 
 	return (
 		<div className={stylesWrapper}>
@@ -61,19 +70,16 @@ const TodoActions: React.FunctionComponent<IActionProps> = ({
 					height={40}
 					checked={isCompleted}
 					disabled={!isAuthorized}
-					onChange={async () => {
-						const newTodo = await todoService.updateTodo(todo?.id, {
+					onChange={() =>
+						handleTodoUpdate({
 							isCompleted: !todo?.isCompleted,
-						});
-						if (newTodo) {
-							changeTodoState(newTodo);
-						}
-					}}
+						})
+					}
 				/>
 				<Blueprint.Button
 					className={moderate}
 					icon={<Draw size={16} />}
-					onClick={onTodoChange}
+					onClick={() => setEditTodoHandler(todo?.id)}
 					disabled={!isAuthorized}
 				/>
 			</div>

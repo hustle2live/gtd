@@ -11,6 +11,7 @@ export interface ITodosStore {
 	updateStore: (data: ITodoType[], total: number) => void;
 	updateTodo: (data: ITodoType) => void;
 	addTodo: (data: ITodoType) => void;
+	deleteTodo: (todoId: number) => void;
 	userId: number | null;
 	authToken: string | null;
 	userName: string | null;
@@ -34,7 +35,6 @@ export const todosStore = create<ITodosStore>()(
 			updateStore: (data, total): void =>
 				set({ todos: data, totalCount: total || null }),
 			updateTodo: (data): void => {
-				console.log('updates');
 				set((state) => {
 					const modified = state.todos.map((item) => {
 						return item.id === data.id ? data : item;
@@ -50,6 +50,10 @@ export const todosStore = create<ITodosStore>()(
 			addTodo: (data): void =>
 				set((state) => ({
 					todos: { ...state.todos, data },
+				})),
+			deleteTodo: (id): void =>
+				set((state) => ({
+					todos: state.todos.filter((todo) => todo.id !== id),
 				})),
 			onLogin: (user): void => {
 				set(() => ({

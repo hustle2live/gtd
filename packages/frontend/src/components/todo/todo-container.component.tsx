@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import TodoTable from './table-view/todo-table.component';
 
 import { ITodoType } from '~shared/types/todo/todo.types';
@@ -17,6 +17,7 @@ import { TodoSlider } from './slider-view/todo-slider.component';
 import { FilterType } from '~shared/types/filters/filters-type';
 import { useMediaQuery } from 'react-responsive';
 import { ScreenParams } from '~shared/constants/screen-queries';
+import { EditTodoWrapper } from '../add-todo/add-todo.component';
 
 enum TABS {
 	ALL = 'all',
@@ -39,6 +40,7 @@ export const TodoContainer: React.FunctionComponent<Props> = ({
 	const [search, setSearch] = useState('');
 	const [pageNumber, setPageNumber] = useState<number>(1);
 	const [itemsPerPage, setItemsPerPage] = useState<number>(null);
+	const [editTodoId, setEditTodoId] = useState<number | null>(null);
 
 	const isMobile = useMediaQuery(ScreenParams.Mobile);
 	const isTablet = useMediaQuery(ScreenParams.Tablet);
@@ -67,12 +69,25 @@ export const TodoContainer: React.FunctionComponent<Props> = ({
 	const TodosScreenResponsive = (): JSX.Element => {
 		switch (true) {
 			case isMobile:
-				return <TodoListElement data={data} userId={currentUser} />;
+				return (
+					<TodoListElement
+						data={data}
+						userId={currentUser}
+						setEditTodoHandler={setEditTodoId}
+					/>
+				);
 			case isTablet:
-				return <TodoSlider data={data} userId={currentUser} />;
+				return (
+					<TodoSlider
+						data={data}
+						userId={currentUser}
+						setEditTodoHandler={setEditTodoId}
+					/>
+				);
 			case isDesktop:
 				return (
 					<TodoTable
+						setEditTodoHandler={setEditTodoId}
 						todos={data}
 						userId={currentUser}
 						pageNumber={pageNumber}
@@ -124,6 +139,17 @@ export const TodoContainer: React.FunctionComponent<Props> = ({
 
 	useEffect(handleSearch, [search]);
 
+	const showEditWrapper = (): JSX.Element => {
+		return !editTodoId ? (
+			<></>
+		) : (
+			<EditTodoWrapper
+				editTodoId={editTodoId}
+				setEditTodoHandler={setEditTodoId}
+			/>
+		);
+	};
+
 	return (
 		<div
 			className={isMobile ? stylesMobile.wrapper : stylesDefault.wrapper}
@@ -156,6 +182,7 @@ export const TodoContainer: React.FunctionComponent<Props> = ({
 			<div className={isMobile ? stylesMobile.list : ''}>
 				<TodosScreenResponsive />
 			</div>
+			{showEditWrapper()}
 		</div>
 	);
 };

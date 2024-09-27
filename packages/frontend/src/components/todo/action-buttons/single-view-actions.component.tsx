@@ -24,7 +24,7 @@ interface IActionProps {
 	isPublic: boolean;
 	onTodoChange?: () => void;
 	onComplete?: () => void;
-	isMobile?: boolean;
+	setEditTodoHandler: (id: number | null) => void;
 }
 
 const SingleViewActions: React.FunctionComponent<IActionProps> = ({
@@ -33,8 +33,8 @@ const SingleViewActions: React.FunctionComponent<IActionProps> = ({
 	onTodoChange,
 	isAuthorized = false,
 	todo,
+	setEditTodoHandler,
 }: IActionProps): JSX.Element => {
-	const navigate = useNavigate();
 	const changeTodoState = todosStore(({ updateTodo }) => updateTodo);
 
 	return (
@@ -82,7 +82,7 @@ const SingleViewActions: React.FunctionComponent<IActionProps> = ({
 			<Blueprint.Button
 				className={moderate}
 				icon={<Draw size={16} />}
-				onClick={onTodoChange}
+				onClick={() => setEditTodoHandler(todo?.id)}
 				disabled={!isAuthorized}
 			/>
 		</div>

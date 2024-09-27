@@ -83,6 +83,8 @@ export const mockStyles = {
 		position: relative;
 		overflow: hidden;
 		display: flex;
+		overflow: scroll;
+		max-height: 80vh;
 		flex-direction: column;
 	`,
 
@@ -93,7 +95,13 @@ export const mockStyles = {
 		overflow: scroll;
 		position: relative;
 		max-width: 100%;
-		max-height: 80vh;
+		min-height: 70%;
+		max-height: 70vh;
+
+		li {
+			width: fit-content;
+			margin: 0 auto;
+		}
 	`,
 };
 
@@ -163,12 +171,13 @@ export const stylesMobile = {
 		max-width: 900px;
 		margin: auto;
 		gap: 10px;
-		max-width: 90vw;
 		flex-wrap: wrap;
 		justify-content: flex-start;
-		overflow: hidden;
+		max-width: 100%;
 		height: 100%;
 		flex-wrap: nowrap;
+		height: -webkit-fill-available;
+		width: -webkit-fill-available;
 
 		@media screen and (max-width: 460px) {
 			max-width: 100%;
@@ -219,8 +228,10 @@ export const stylesMobile = {
 	`,
 
 	list: css`
-		margin-top: 0px;
-		max-height: 88vh;
+		height: -webkit-fill-available;
+		width: -webkit-fill-available;
+		align-items: center;
+		justify-content: center;
 
 		& ul::-webkit-scrollbar {
 			width: 0px !important;

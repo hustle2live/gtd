@@ -7,7 +7,12 @@ import {
 import HttpService from './http.service';
 import { FilterType } from '~shared/types/filters/filters-type';
 import { API_KEYS, API_PARAM_KEYS } from '~shared/keys';
-import { updateStoreCallback } from '~store/update-store.callback';
+import {
+	addTodoCallback,
+	deleteTodoCallback,
+	updateStoreCallback,
+	updateTodoCallback,
+} from '~store/update-store.actions';
 
 type TDataResponse = {
 	data: { todos: ITodoType[]; totalCount: number };
@@ -68,7 +73,14 @@ class TodoService extends HttpService {
 				url: `${API_KEYS.TODOS_ROOT}?${API_PARAM_KEYS.USER_ID}${userId}`,
 				data: todoBody,
 			});
-			return !data ? null : (data as ITodoType);
+
+			if (!data) {
+				return null;
+			}
+
+			addTodoCallback(data as ITodoType);
+
+			return data as ITodoType;
 		} catch (error) {
 			console.error(error);
 		}
@@ -99,6 +111,8 @@ class TodoService extends HttpService {
 				return null;
 			}
 
+			updateTodoCallback(data as ITodoType);
+
 			return data as ITodoType;
 		} catch (error) {
 			console.error(error);
@@ -110,7 +124,16 @@ class TodoService extends HttpService {
 			const { data } = await this.delete({
 				url: `${API_KEYS.TODOS_ROOT}${todoId}`,
 			});
-			return (data as ITodoType) ?? null;
+
+			if (!data) {
+				return null;
+			}
+
+			const { id } = data as ITodoType;
+
+			deleteTodoCallback(id);
+
+			return data as ITodoType;
 		} catch (error) {
 			console.error(error);
 		}

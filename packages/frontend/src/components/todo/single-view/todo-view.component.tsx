@@ -10,12 +10,14 @@ type ITodoProps = {
 	todo: ITodoType;
 	editable: boolean;
 	singleview?: boolean;
+	setEditTodoHandler: (id: number | null) => void;
 };
 
 const TodoViewElement: React.FunctionComponent<ITodoProps> = ({
 	todo,
 	editable,
 	singleview = false,
+	setEditTodoHandler = (): void => {},
 }: ITodoProps) => {
 	const todoItem = todo;
 	const additionalStyles = singleview ? 'singleView' : '';
@@ -33,25 +35,17 @@ const TodoViewElement: React.FunctionComponent<ITodoProps> = ({
 				{singleview ? (
 					<SingleViewActions
 						todo={todoItem}
-						onComplete={() => {
-							todoService.updateTodo(todoItem.id, {
-								isCompleted: !todoItem.isCompleted,
-							});
-						}}
 						isCompleted={todoItem.isCompleted}
 						isPublic={todoItem.isPublic}
 						isAuthorized={editable}
+						setEditTodoHandler={setEditTodoHandler}
 					/>
 				) : (
 					<TodoActions
 						todo={todoItem}
-						onComplete={() => {
-							todoService.updateTodo(todoItem.id, {
-								isCompleted: !todoItem.isCompleted,
-							});
-						}}
 						isCompleted={todoItem.isCompleted}
 						isAuthorized={editable}
+						setEditTodoHandler={setEditTodoHandler}
 					/>
 				)}
 			</div>

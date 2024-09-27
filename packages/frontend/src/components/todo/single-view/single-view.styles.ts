@@ -1,5 +1,4 @@
 import { css } from '@emotion/css';
-import { colors, themeColors, themeFonts } from '~shared/styles';
 
 export const singleViewContainer = css`
 	display: flex;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Intent } from '@blueprintjs/core';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ROUTER_KEYS } from '~shared/keys';
@@ -8,10 +8,14 @@ import { mw85 } from '../todo.styles';
 import { buttonBack } from './todo-view.styles';
 import { Header } from '~/components/header/header.component';
 import { singleViewContainer } from './single-view.styles';
+import { EditTodoWrapper } from '~/components/add-todo/add-todo.component';
 
 const TodoSingleView: React.FunctionComponent = (): JSX.Element => {
 	const { todoId } = useParams();
 	const navigate = useNavigate();
+
+	const [editTodoId, setEditTodoId] = useState<number | null>(null);
+
 	const store = todosStore((state: ITodosStore) => state.todos);
 	const userId = todosStore((state: ITodosStore) => state.userId);
 
@@ -21,6 +25,17 @@ const TodoSingleView: React.FunctionComponent = (): JSX.Element => {
 		return <></>;
 	}
 
+	const showEditWrapper = (): JSX.Element => {
+		return !editTodoId ? (
+			<></>
+		) : (
+			<EditTodoWrapper
+				editTodoId={editTodoId}
+				setEditTodoHandler={setEditTodoId}
+			/>
+		);
+	};
+
 	return (
 		<>
 			<Header />
@@ -29,6 +44,7 @@ const TodoSingleView: React.FunctionComponent = (): JSX.Element => {
 					todo={todoById}
 					editable={todoById.userId === userId}
 					singleview={true}
+					setEditTodoHandler={setEditTodoId}
 				/>
 				<div className={mw85}>
 					<Button
@@ -38,6 +54,7 @@ const TodoSingleView: React.FunctionComponent = (): JSX.Element => {
 						onClick={() => navigate(ROUTER_KEYS.DASHBOARD)}
 					/>
 				</div>
+				{showEditWrapper()}
 			</div>
 		</>
 	);

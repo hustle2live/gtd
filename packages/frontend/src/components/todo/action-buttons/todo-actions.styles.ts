@@ -7,10 +7,6 @@ export const stylesWrapper = css`
 	height: 40px;
 	gap: 4px;
 
-	&.singleview {
-		border: 1px solid yellow;
-	}
-
 	@media screen and (max-width: 460px) {
 		width: 100%;
 		justify-content: space-between;

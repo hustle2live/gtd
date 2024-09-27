@@ -17,12 +17,13 @@ import {
 type TProps = {
 	data: ITodoType[];
 	userId?: number;
-	horizontal?: boolean;
+	setEditTodoHandler: (id: number | null) => void;
 };
 
 const TodoSlider: React.FunctionComponent<TProps> = ({
 	data,
 	userId,
+	setEditTodoHandler,
 }): JSX.Element => {
 	const cardWidth = 400;
 	const gap = 40;
@@ -73,6 +74,7 @@ const TodoSlider: React.FunctionComponent<TProps> = ({
 									}}
 									isCompleted={todoItem.isCompleted}
 									isAuthorized={todoItem.userId === userId}
+									setEditTodoHandler={setEditTodoHandler}
 								/>
 							</div>
 						</div>
