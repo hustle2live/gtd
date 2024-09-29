@@ -6,6 +6,7 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc && vite build",
+		"start": "vite",
 		"lint": "npx eslint ./src",
 		"lint:fix": "npx eslint ./src --fix",
 		"preview": "vite preview"
