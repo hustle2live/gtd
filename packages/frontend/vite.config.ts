@@ -7,7 +7,7 @@ import EnvironmentPlugin from 'vite-plugin-environment';
 // https://vitejs.dev/config/
 export default defineConfig({
 	plugins: [react(), svgr(), ViteAliases(), EnvironmentPlugin('all')],
-	root: '/',
+	root: './',
 	build: {
 		outDir: 'dist',
 	},
