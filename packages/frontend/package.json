@@ -7,6 +7,8 @@
 		"dev": "vite",
 		"build": "tsc && vite build",
 		"start": "vite",
+		"predeploy": "tsc && vite build",
+		"deploy": "gh-pages -d build",
 		"lint": "npx eslint ./src",
 		"lint:fix": "npx eslint ./src --fix",
 		"preview": "vite preview"
@@ -22,6 +24,7 @@
 		"axios": "^1.5.1",
 		"classnames": "^2.3.2",
 		"final-form": "^4.20.10",
+		"gh-pages": "^6.1.1",
 		"react": "^18.2.0",
 		"react-addons-css-transition-group": "^15.6.2",
 		"react-dom": "^18.2.0",
@@ -29,11 +32,12 @@
 		"react-hook-form": "^7.53.0",
 		"react-responsive": "^10.0.0",
 		"react-router-dom": "6.24.1",
-		"vite-plugin-svgr": "^4.1.0",
-		"zustand": "^4.5.5",
 		"vite": "^4.4.5",
 		"vite-aliases": "^0.11.6",
-		"vite-plugin-environment": "^1.1.3"
+		"vite-plugin-environment": "^1.1.3",
+		"vite-plugin-svgr": "^4.1.0",
+		"vite-tsconfig-paths": "^5.0.1",
+		"zustand": "^4.5.5"
 	},
 	"devDependencies": {
 		"@types/react": "^18.2.15",
