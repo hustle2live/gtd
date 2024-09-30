@@ -7,6 +7,7 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+	base: '/gtd/',
 	plugins: [
 		react(),
 		svgr(),
@@ -14,5 +15,4 @@ export default defineConfig({
 		EnvironmentPlugin('all'),
 		tsconfigPaths(),
 	],
-	base: '/gtd/',
 });
