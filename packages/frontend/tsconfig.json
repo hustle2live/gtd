@@ -40,10 +40,5 @@
 		}
 	},
 	"include": ["./src/**/*", "./vite.config.ts", ".eslintrc.cjs"],
-	"exclude": ["./node_modules", "test", "./dist", "**/*spec.ts"],
-	"references": [
-		{
-			"path": "./tsconfig.node.json"
-		}
-	]
+	"exclude": ["./node_modules", "test", "./dist", "**/*spec.ts"]
 }
