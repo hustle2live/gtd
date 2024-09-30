@@ -14,5 +14,5 @@ export default defineConfig({
 		EnvironmentPlugin('all'),
 		tsconfigPaths(),
 	],
-	base: '/hustle2live.github.io/gtd/',
+	base: '/gtd/',
 });
