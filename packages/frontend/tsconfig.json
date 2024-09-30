@@ -76,6 +76,7 @@
 		}
 	},
 	"include": [
+		"./index.html",
 		"./src/**/*",
 		"./vite.config.ts",
 		".eslintrc.cjs"
