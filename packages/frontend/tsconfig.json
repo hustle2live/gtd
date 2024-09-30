@@ -86,5 +86,10 @@
 		"test",
 		"./dist",
 		"**/*spec.ts"
+	],
+	"references": [
+		{
+			"path": "./tsconfig.node.json"
+		}
 	]
 }

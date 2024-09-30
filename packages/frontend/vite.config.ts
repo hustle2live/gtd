@@ -7,7 +7,6 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	root: './',
 	plugins: [
 		react(),
 		svgr(),
@@ -15,9 +14,4 @@ export default defineConfig({
 		EnvironmentPlugin('all'),
 		tsconfigPaths(),
 	],
-	build: {
-		rollupOptions: {
-			input: './index.html',
-		},
-	},
 });
