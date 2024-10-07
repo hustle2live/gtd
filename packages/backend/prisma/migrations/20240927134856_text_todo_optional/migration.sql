@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE "Todo" ALTER COLUMN "text" DROP NOT NULL;
