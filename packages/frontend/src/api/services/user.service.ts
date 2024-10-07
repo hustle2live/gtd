@@ -12,6 +12,7 @@ import { API_KEYS, API_PARAM_KEYS } from '~shared/keys';
 type ResponseMessage = { message: string };
 
 class UserService extends HttpService {
+	withoutAuth = false;
 	constructor() {
 		super();
 	}
@@ -39,7 +40,7 @@ class UserService extends HttpService {
 					url: API_KEYS.LOGIN,
 					data: user,
 				},
-				false,
+				this.withoutAuth,
 			);
 
 			if (!data) {
@@ -54,10 +55,13 @@ class UserService extends HttpService {
 
 	async register(user: IUserRegisterDto): Promise<ResponseMessage> {
 		try {
-			const { data } = await this.post({
-				url: API_KEYS.REGISTER,
-				data: user,
-			});
+			const { data } = await this.post(
+				{
+					url: API_KEYS.REGISTER,
+					data: user,
+				},
+				this.withoutAuth,
+			);
 
 			return data as ResponseMessage;
 		} catch (error) {
@@ -89,10 +93,13 @@ class UserService extends HttpService {
 		user: Pick<IUserRegisterDto, 'email'>,
 	): Promise<ResponseMessage | null> {
 		try {
-			const { data } = await this.post({
-				url: API_KEYS.RESET_PASSWORD_REQUEST,
-				data: user,
-			});
+			const { data } = await this.post(
+				{
+					url: API_KEYS.RESET_PASSWORD_REQUEST,
+					data: user,
+				},
+				this.withoutAuth,
+			);
 
 			if (!data) {
 				return null;
