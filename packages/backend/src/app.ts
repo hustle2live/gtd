@@ -5,8 +5,10 @@ import cors from 'cors';
 
 import AppRouter from './routes';
 
-const port = 3030;
+const port = process.env.PORT || 3030;
+
 const app: Express = express();
+
 const router = new AppRouter(app);
 
 app.use(bodyParser.json());
@@ -14,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(
 	cors({
-		origin: 'http://localhost:5173',
+		origin: '*',
 		methods: ['POST', 'GET', 'PUT', 'DELETE'],
 		allowedHeaders: ['Content-type', 'Authorization'],
 	}),
