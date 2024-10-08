@@ -65,8 +65,8 @@ export const mauto20 = css`
 
 export const absoluteLeft = css`
 	position: absolute;
-	left: 40%;
-	top: -100px;
+	left: 5%;
+	top: 5%;
 `;
 
 export const underline = css`
