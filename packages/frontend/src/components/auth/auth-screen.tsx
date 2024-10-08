@@ -28,6 +28,7 @@ const Heading = (): JSX.Element => {
 				}
 				extraButtonStyles={headerMainLink}
 			/>
+
 			<h2>Welcome to app</h2>
 			<p>Reactive Getting Things Done - Todo App</p>
 		</div>

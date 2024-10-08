@@ -4,6 +4,11 @@ import { NavLink, useSearchParams } from 'react-router-dom';
 import { userService } from '~/api/services/user.service';
 import { ROUTER_KEYS } from '~shared/keys';
 import { absoluteLeft, authDivWrapper, underline } from './auth.styles';
+import Loader from '../loader/loader.component';
+import { AimpointsTarget } from '@blueprintjs/icons';
+import { themeColors } from '~shared/styles';
+import { headerMainLink } from '../header/header-main-link.styles';
+import Button from '../button/button.component';
 
 const AuthConfirmPage: React.FunctionComponent = () => {
 	const [searchParams] = useSearchParams();
@@ -16,7 +21,7 @@ const AuthConfirmPage: React.FunctionComponent = () => {
 				token: searchParams.get('token'),
 			});
 
-			setMessage(request?.message ?? null);
+			setMessage(request?.message ?? 'Confirmation request failed, ');
 		};
 
 		handlePasswordReset();
@@ -25,12 +30,27 @@ const AuthConfirmPage: React.FunctionComponent = () => {
 	return (
 		<div className={authDivWrapper}>
 			<NavLink className={absoluteLeft} to={ROUTER_KEYS.ROOT}>
-				{'<--'} Return to main page
+				<Button
+					text="Main"
+					icon={
+						<AimpointsTarget
+							size={22}
+							color={themeColors.additional}
+						/>
+					}
+					extraButtonStyles={headerMainLink}
+				/>
 			</NavLink>
-			<p>{message || <span>Confirmation request failed</span>}, </p>
-			<NavLink className={underline} to={ROUTER_KEYS.LOGIN}>
-				<span>Follow to login Page</span>
-			</NavLink>
+			{!message ? (
+				<Loader />
+			) : (
+				<>
+					<p>{message}</p>
+					<NavLink className={underline} to={ROUTER_KEYS.LOGIN}>
+						<span>Follow to login Page</span>
+					</NavLink>
+				</>
+			)}
 		</div>
 	);
 };
