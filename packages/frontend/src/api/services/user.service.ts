@@ -123,9 +123,12 @@ class UserService extends HttpService {
 			const endpoint = password
 				? API_KEYS.RESET_PASSWORD
 				: API_KEYS.VERIFY_URL;
-			const { data } = await this.get({
-				url: `${endpoint}?${API_PARAM_KEYS.TOKEN}${token}&${API_PARAM_KEYS.EMAIL}${email}${additional}`,
-			});
+			const { data } = await this.get(
+				{
+					url: `${endpoint}?${API_PARAM_KEYS.TOKEN}${token}&${API_PARAM_KEYS.EMAIL}${email}${additional}`,
+				},
+				false,
+			);
 
 			return data as ResponseMessage;
 		} catch (error) {

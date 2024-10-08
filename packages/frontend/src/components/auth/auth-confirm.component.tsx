@@ -27,14 +27,10 @@ const AuthConfirmPage: React.FunctionComponent = () => {
 			<NavLink className={absoluteLeft} to={ROUTER_KEYS.ROOT}>
 				{'<--'} Return to main page
 			</NavLink>
-			{message ? (
-				<NavLink className={underline} to={ROUTER_KEYS.LOGIN}>
-					{message}
-					<span>, Follow to login Page</span>
-				</NavLink>
-			) : (
-				<span>Confirmation request failed</span>
-			)}
+			<p>{message || <span>Confirmation request failed</span>}, </p>
+			<NavLink className={underline} to={ROUTER_KEYS.LOGIN}>
+				<span>Follow to login Page</span>
+			</NavLink>
 		</div>
 	);
 };
