@@ -9,16 +9,16 @@ const AuthConfirmPage: React.FunctionComponent = () => {
 	const [searchParams] = useSearchParams();
 	const [message, setMessage] = useState(null);
 
-	const handlePasswordReset = async (): Promise<void> => {
-		const request = await userService.verificationConfirm({
-			email: searchParams.get('email'),
-			token: searchParams.get('token'),
-		});
-
-		setMessage(request?.message ?? false);
-	};
-
 	useEffect(() => {
+		const handlePasswordReset = async (): Promise<void> => {
+			const request = await userService.verificationConfirm({
+				email: searchParams.get('email'),
+				token: searchParams.get('token'),
+			});
+
+			setMessage(request?.message ?? null);
+		};
+
 		handlePasswordReset();
 	}, []);
 
