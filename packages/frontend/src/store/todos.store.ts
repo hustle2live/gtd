@@ -5,35 +5,42 @@ import { STORAGE_KEYS } from '~shared/keys';
 import { ITodoType } from '~shared/types/todo/todo.types';
 import { UserModel } from '~/api/models/user.model';
 
-export interface ITodosStore {
+type TInitialState = {
 	todos: ITodoType[];
 	totalCount: number;
-	updateStore: (data: ITodoType[], total: number) => void;
-	updateTodo: (data: ITodoType) => void;
-	addTodo: (data: ITodoType) => void;
-	deleteTodo: (todoId: number) => void;
 	userId: number | null;
 	authToken: string | null;
 	userName: string | null;
 	userEmail: string | null;
 	isAuthorized: boolean;
+};
+export interface ITodosStore extends TInitialState {
+	updateStore: (data: ITodoType[], total: number) => void;
+	updateTodo: (data: ITodoType) => void;
+	addTodo: (data: ITodoType) => void;
+	deleteTodo: (todoId: number) => void;
 	onLogin: (user: UserModel) => void;
 	updateUser: (user: Pick<UserModel, 'email' | 'name'>) => void;
 	onLogout: () => void;
 }
 
+const initialState: TInitialState = {
+	userId: null,
+	authToken: null,
+	isAuthorized: false,
+	todos: [],
+	totalCount: 0,
+	userName: null,
+	userEmail: null,
+};
+
 export const todosStore = create<ITodosStore>()(
 	persist(
 		(set) => ({
-			userId: null,
-			authToken: null,
-			isAuthorized: false,
-			todos: [],
-			totalCount: null,
-			userName: null,
-			userEmail: null,
-			updateStore: (data, total): void =>
-				set({ todos: data, totalCount: total || null }),
+			...initialState,
+			updateStore: (data, total = 0): void => {
+				set({ todos: data, totalCount: total });
+			},
 			updateTodo: (data): void => {
 				set((state) => {
 					const modified = state.todos.map((item) => {
@@ -75,10 +82,10 @@ export const todosStore = create<ITodosStore>()(
 		{
 			name: STORAGE_KEYS.APP_STORAGE,
 			storage: createJSONStorage(() => localStorage),
-			partialize: ({ authToken, isAuthorized, userId }) => ({
-				[STORAGE_KEYS.TOKEN]: authToken,
-				[STORAGE_KEYS.IS_AUTHORIZED]: isAuthorized,
-				[STORAGE_KEYS.USER_ID]: userId,
+			partialize: (state) => ({
+				[STORAGE_KEYS.TOKEN]: state.authToken,
+				[STORAGE_KEYS.IS_AUTHORIZED]: state.isAuthorized,
+				[STORAGE_KEYS.USER_ID]: state.userId,
 			}),
 		},
 	),

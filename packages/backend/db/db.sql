@@ -15,7 +15,7 @@ CREATE TABLE "Todo" (
   "id" SERIAL PRIMARY KEY,
   "title" VARCHAR(150),
   "text" VARCHAR(500) DEFAULT '',
-  "isComplete" BOOLEAN DEFAULT FALSE,
+  "isCompleted" BOOLEAN DEFAULT FALSE,
   "isPublic" BOOLEAN DEFAULT FALSE,
   "userId" INTEGER,
   FOREIGN KEY ("userId") REFERENCES "User"("id")
@@ -39,7 +39,7 @@ CREATE TABLE "Todo" (
 --   id SERIAL PRIMARY KEY,
 --   title VARCHAR(150) NOT NULL,
 --   text VARCHAR(500) DEFAULT '',
---   isComplete BOOLEAN DEFAULT FALSE,
+--   isCompleted BOOLEAN DEFAULT FALSE,
 --   isPublic BOOLEAN DEFAULT FALSE,
 --   userId INTEGER REFERENCES User(id)
 -- );

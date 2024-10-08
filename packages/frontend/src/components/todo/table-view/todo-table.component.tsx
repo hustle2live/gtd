@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Table2, Column, Cell } from '@blueprintjs/table';
 
 import { todoService } from '~/api/services/todo.service';
@@ -70,14 +70,18 @@ const TodoTable: React.FunctionComponent<Props> = ({
 			<Column
 				name="Title"
 				cellRenderer={(rowIndex) => (
-					<Cell>{todos[rowIndex]?.title ?? ''}</Cell>
+					<Cell>
+						{rowIndex >= todos.length ? '' : todos[rowIndex]?.title}
+					</Cell>
 				)}
 			/>
 
 			<Column
 				name="Description"
 				cellRenderer={(rowIndex) => (
-					<Cell>{todos[rowIndex]?.text ?? ''}</Cell>
+					<Cell>
+						{rowIndex >= todos.length ? '' : todos[rowIndex]?.text}
+					</Cell>
 				)}
 			/>
 
@@ -85,7 +89,7 @@ const TodoTable: React.FunctionComponent<Props> = ({
 				name="Completed"
 				cellRenderer={(rowIndex) => (
 					<Cell>
-						{!todos[rowIndex] ? (
+						{rowIndex >= todos.length ? (
 							''
 						) : (
 							<TodoActions

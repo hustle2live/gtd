@@ -39,7 +39,7 @@ export const TodoContainer: React.FunctionComponent<Props> = ({
 	const [tabSelected, setTabSelected] = useState<TABS>(TABS.ALL);
 	const [search, setSearch] = useState('');
 	const [pageNumber, setPageNumber] = useState<number>(1);
-	const [itemsPerPage, setItemsPerPage] = useState<number>(null);
+	const [itemsPerPage, setItemsPerPage] = useState<number>(10);
 	const [editTodoId, setEditTodoId] = useState<number | null>(null);
 
 	const isMobile = useMediaQuery(ScreenParams.Mobile);

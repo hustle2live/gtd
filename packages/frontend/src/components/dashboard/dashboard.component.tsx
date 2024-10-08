@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { todosStore } from '~store/todos.store';
 import { TodoContainer } from '../todo/todo-container.component';
 import { FilterType } from '~shared/types/filters/filters-type';

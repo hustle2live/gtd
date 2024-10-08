@@ -29,7 +29,7 @@ const TodoSlider: React.FunctionComponent<TProps> = ({
 	const gap = 40;
 
 	const min = cardWidth / 2 - gap * 2;
-	const max = -(data.length * (cardWidth - gap / 2));
+	const max = !data?.length ? 1 : -data.length * (cardWidth - gap / 2);
 
 	const [posX, setPosX] = useState(min);
 
