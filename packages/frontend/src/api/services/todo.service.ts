@@ -10,6 +10,7 @@ import { API_KEYS, API_PARAM_KEYS } from '~shared/keys';
 import {
 	addTodoCallback,
 	deleteTodoCallback,
+	setLoadingCallback,
 	updateStoreCallback,
 	updateTodoCallback,
 } from '~store/update-store.actions';
@@ -26,6 +27,7 @@ class TodoService extends HttpService {
 	}
 
 	addFilterParams({ search, status, page, perPage }: FilterType): string {
+		setLoadingCallback(true);
 		try {
 			this.filters = '';
 			if (search) {
@@ -37,6 +39,7 @@ class TodoService extends HttpService {
 			if (page && perPage) {
 				this.filters += `&${API_PARAM_KEYS.PAGE}${page}&${API_PARAM_KEYS.PER_PAGE}${perPage}`;
 			}
+			setLoadingCallback(false);
 			return this.filters;
 		} catch (error) {
 			console.error(error);
@@ -47,6 +50,7 @@ class TodoService extends HttpService {
 		userId: number,
 		filters?: FilterType | null,
 	): Promise<{ todos: ITodoType[]; totalCount: number } | null> {
+		setLoadingCallback(true);
 		try {
 			const filterParams = filters ? this.addFilterParams(filters) : '';
 
@@ -60,6 +64,7 @@ class TodoService extends HttpService {
 				updateStoreCallback(todos, totalCount);
 			}
 
+			setLoadingCallback(false);
 			return { todos, totalCount };
 		} catch (error) {
 			console.error(error);
@@ -70,6 +75,7 @@ class TodoService extends HttpService {
 		userId: number,
 		todoBody: ITodoCreateRequestDto,
 	): Promise<ITodoType | null> {
+		setLoadingCallback(true);
 		try {
 			const { data } = await this.post({
 				url: `${API_KEYS.TODOS_ROOT}?${API_PARAM_KEYS.USER_ID}${userId}`,
@@ -82,6 +88,7 @@ class TodoService extends HttpService {
 
 			addTodoCallback(data as ITodoType);
 
+			setLoadingCallback(false);
 			return data as ITodoType;
 		} catch (error) {
 			console.error(error);
@@ -89,10 +96,12 @@ class TodoService extends HttpService {
 	}
 
 	async getTodoById(todoId: number): Promise<ITodoType | null> {
+		setLoadingCallback(true);
 		try {
 			const { data } = await this.get({
 				url: `${API_KEYS.TODOS_ROOT}${todoId}`,
 			});
+			setLoadingCallback(false);
 			return data as ITodoType;
 		} catch (error) {
 			console.error(error);
@@ -103,6 +112,7 @@ class TodoService extends HttpService {
 		todoId: number,
 		todoBody: ITodoUpdateRequestDto,
 	): Promise<ITodoType> {
+		setLoadingCallback(true);
 		try {
 			const { data } = await this.put({
 				url: `${API_KEYS.TODOS_ROOT}${todoId}`,
@@ -115,6 +125,7 @@ class TodoService extends HttpService {
 
 			updateTodoCallback(data as ITodoType);
 
+			setLoadingCallback(false);
 			return data as ITodoType;
 		} catch (error) {
 			console.error(error);
@@ -122,6 +133,7 @@ class TodoService extends HttpService {
 	}
 
 	async deleteTodo(todoId: number): Promise<ITodoType> {
+		setLoadingCallback(true);
 		try {
 			const { data } = await this.delete({
 				url: `${API_KEYS.TODOS_ROOT}${todoId}`,
@@ -135,6 +147,7 @@ class TodoService extends HttpService {
 
 			deleteTodoCallback(id);
 
+			setLoadingCallback(false);
 			return data as ITodoType;
 		} catch (error) {
 			console.error(error);

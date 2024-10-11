@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { IUserRegisterDto } from '~shared/types/user/user.types';
 import { AuthForm } from './form.component';
@@ -10,9 +10,9 @@ import { userService } from '~/api/services/user.service';
 const SignIn: React.FunctionComponent = (): JSX.Element => {
 	const onLogin = todosStore(({ onLogin }) => onLogin);
 
-	const handleLogin: SubmitHandler<IUserRegisterDto> = async (
-		payload: IUserRegisterDto,
-	): Promise<void> => {
+	const handleLogin: SubmitHandler<IUserRegisterDto> = useCallback<
+		SubmitHandler<IUserRegisterDto>
+	>(async (payload: IUserRegisterDto): Promise<void> => {
 		const { email, password } = payload;
 		const userData: UserModel = await userService.login({
 			email,
@@ -22,7 +22,7 @@ const SignIn: React.FunctionComponent = (): JSX.Element => {
 			console.error('not authorized');
 		}
 		onLogin(userData);
-	};
+	}, []);
 
 	return <AuthForm onSubmit={handleLogin} />;
 };

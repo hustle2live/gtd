@@ -11,11 +11,20 @@ import {
 } from './root.styles';
 import { DashboardLink } from '../dashboard/dashboard-link.component';
 
-const RootPage: React.FunctionComponent = (): JSX.Element => {
+import Loader from '../loader/loader.component';
+
+type RootProps = {
+	isLoading: boolean;
+};
+
+const RootPage: React.FunctionComponent<RootProps> = ({
+	isLoading,
+}: RootProps): JSX.Element => {
 	const navigate = useNavigate();
 
 	return (
 		<div className={rootWrapper}>
+			{isLoading && <Loader />}
 			<DashboardLink />
 			<div>
 				<p>Getting Things Reactively Done, &#128640;</p>

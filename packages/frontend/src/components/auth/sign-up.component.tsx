@@ -5,7 +5,7 @@ import { AuthForm } from './form.component';
 import { SubmitHandler } from 'react-hook-form';
 import { userService } from '~/api/services/user.service';
 
-const SignUp: React.FunctionComponent = () => {
+const SignUp: React.FunctionComponent = (): JSX.Element => {
 	const [message, setMessage] = useState('');
 
 	const handleRegister: SubmitHandler<IUserFormRegister> = useCallback<

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { todoService } from '~/api/services/todo.service';
 import { RouterProvider } from '~router/router-provider';
-import { ITodosStore, todosStore } from '~store/todos.store';
+import { todosStore } from '~store/todos.store';
 import { ROUTER_KEYS } from '~shared/keys';
 import { Header } from '~/components/header/header.component';
 import { RootPage } from '~/components/root-page/root-page';
@@ -14,27 +14,33 @@ import { ProfilePage } from '~/components/profile/profile-page.component';
 import { FilterType } from '~shared/types/filters/filters-type';
 
 const App = (): React.ReactNode => {
-	const isAuthorized = todosStore((state: ITodosStore) => state.isAuthorized);
-	const getUserId = todosStore((state: ITodosStore) => state.userId);
+	const { isAuthorized, userId, loading, setLoading } = todosStore(
+		({ isAuthorized, userId, loading, setLoading }) => {
+			return { isAuthorized, userId, loading, setLoading };
+		},
+	);
 
 	const [logedIn, setLogedIn] = useState(isAuthorized);
 
 	useEffect(() => {
 		setLogedIn(isAuthorized);
+		if (isAuthorized) {
+			requestTodos();
+		}
 	}, [isAuthorized]);
 
 	const requestTodos = useCallback(
 		async (filters: FilterType = null): Promise<void> => {
-			await todoService.getTodos(getUserId, filters);
+			setLoading(true);
+			await todoService.getTodos(userId, filters);
+			// setLoading(false);
 		},
 		[],
 	);
 
 	useEffect((): void => {
-		if (isAuthorized) {
-			requestTodos();
-		}
-	}, [isAuthorized]);
+		setTimeout(() => setLoading(false), 1000);
+	}, [requestTodos]);
 
 	return (
 		<RouterProvider
@@ -44,7 +50,7 @@ const App = (): React.ReactNode => {
 					children: [
 						{
 							path: ROUTER_KEYS.ROOT,
-							element: <RootPage />,
+							element: <RootPage isLoading={loading} />,
 						},
 						{
 							path: ROUTER_KEYS.DASHBOARD,
@@ -53,7 +59,10 @@ const App = (): React.ReactNode => {
 									isAuthed={logedIn}
 									redirectPath={ROUTER_KEYS.ROOT}
 								>
-									<Dashboard getTodosHandler={requestTodos} />
+									<Dashboard
+										getTodosHandler={requestTodos}
+										isLoading={loading}
+									/>
 								</ProtectedRoute>
 							),
 						},
@@ -64,7 +73,7 @@ const App = (): React.ReactNode => {
 									isAuthed={!logedIn}
 									redirectPath={ROUTER_KEYS.DASHBOARD}
 								>
-									<AuthScreen />
+									<AuthScreen isLoading={loading} />
 								</ProtectedRoute>
 							),
 						},
@@ -75,7 +84,7 @@ const App = (): React.ReactNode => {
 									isAuthed={!logedIn}
 									redirectPath={ROUTER_KEYS.DASHBOARD}
 								>
-									<AuthScreen />
+									<AuthScreen isLoading={loading} />
 								</ProtectedRoute>
 							),
 						},
@@ -108,11 +117,11 @@ const App = (): React.ReactNode => {
 						},
 						{
 							path: ROUTER_KEYS.RESET_PASSWORD,
-							element: <AuthScreen />,
+							element: <AuthScreen isLoading={loading} />,
 						},
 						{
 							path: ROUTER_KEYS.RESET_PASSWORD_CONFIRM,
-							element: <AuthScreen />,
+							element: <AuthScreen isLoading={loading} />,
 						},
 					],
 				},

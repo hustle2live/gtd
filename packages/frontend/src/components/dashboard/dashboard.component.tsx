@@ -8,13 +8,19 @@ import { showEditWrapper } from '../add-todo/add-todo.controller';
 import { Button, Intent } from '@blueprintjs/core';
 import * as BPIcons from '@blueprintjs/icons';
 import { addTodoButton } from './dashboard.styles';
+import Loader from '../loader/loader.component';
+
+type LoadProps = {
+	isLoading: boolean;
+};
 
 type Props = {
 	getTodosHandler: (filters?: FilterType) => Promise<void>;
-};
+} & LoadProps;
 
 const Dashboard: React.FunctionComponent<Props> = ({
 	getTodosHandler,
+	isLoading,
 }: Props): JSX.Element => {
 	const myTodos = todosStore(({ todos }) => todos);
 
@@ -31,6 +37,7 @@ const Dashboard: React.FunctionComponent<Props> = ({
 				onClick={() => setEditTodoId(999)}
 			/>
 			{showEditWrapper(editTodoId, setEditTodoId, true)}
+			{isLoading && <Loader />}
 		</div>
 	);
 };

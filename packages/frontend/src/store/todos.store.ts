@@ -13,6 +13,7 @@ type TInitialState = {
 	userName: string | null;
 	userEmail: string | null;
 	isAuthorized: boolean;
+	loading: boolean;
 };
 export interface ITodosStore extends TInitialState {
 	updateStore: (data: ITodoType[], total: number) => void;
@@ -22,6 +23,7 @@ export interface ITodosStore extends TInitialState {
 	onLogin: (user: UserModel) => void;
 	updateUser: (user: Pick<UserModel, 'email' | 'name'>) => void;
 	onLogout: () => void;
+	setLoading: (value: boolean) => void;
 }
 
 const initialState: TInitialState = {
@@ -32,6 +34,7 @@ const initialState: TInitialState = {
 	totalCount: 0,
 	userName: null,
 	userEmail: null,
+	loading: true,
 };
 
 export const todosStore = create<ITodosStore>()(
@@ -77,6 +80,11 @@ export const todosStore = create<ITodosStore>()(
 					isAuthorized: false,
 					userId: null,
 				}));
+			},
+			setLoading: (value): void => {
+				set(() => {
+					return { loading: value };
+				});
 			},
 		}),
 		{

@@ -15,6 +15,11 @@ import Button from '../button/button.component';
 import { AimpointsTarget } from '@blueprintjs/icons';
 import { themeColors } from '~shared/styles';
 import { headerMainLink } from '../header/header-main-link.styles';
+import Loader from '../loader/loader.component';
+
+type LoadProps = {
+	isLoading: boolean;
+};
 
 const Heading = (): JSX.Element => {
 	const navigate = useNavigate();
@@ -35,7 +40,9 @@ const Heading = (): JSX.Element => {
 	);
 };
 
-const AuthScreen: React.FunctionComponent = (): JSX.Element => {
+const AuthScreen: React.FunctionComponent<LoadProps> = ({
+	isLoading,
+}: LoadProps): JSX.Element => {
 	const { pathname } = useLocation();
 	const navigate = useNavigate();
 
@@ -49,6 +56,7 @@ const AuthScreen: React.FunctionComponent = (): JSX.Element => {
 					</>
 				);
 			}
+
 			case ROUTER_KEYS.SIGN_UP: {
 				return (
 					<>
@@ -57,6 +65,7 @@ const AuthScreen: React.FunctionComponent = (): JSX.Element => {
 					</>
 				);
 			}
+
 			case ROUTER_KEYS.RESET_PASSWORD: {
 				return (
 					<>
@@ -75,9 +84,11 @@ const AuthScreen: React.FunctionComponent = (): JSX.Element => {
 					</>
 				);
 			}
+
 			case ROUTER_KEYS.RESET_PASSWORD_CONFIRM: {
 				return <ResetPasswordForm confirm={true} />;
 			}
+
 			default: {
 				return <></>;
 			}
@@ -85,11 +96,14 @@ const AuthScreen: React.FunctionComponent = (): JSX.Element => {
 	};
 
 	return (
-		<div className={authDivWrapper}>
-			<section className={authFormSection}>
-				{setFormScreen(pathname)}
-			</section>
-		</div>
+		<>
+			<div className={authDivWrapper}>
+				{isLoading && <Loader />}
+				<section className={authFormSection}>
+					{setFormScreen(pathname)}
+				</section>
+			</div>
+		</>
 	);
 };
 

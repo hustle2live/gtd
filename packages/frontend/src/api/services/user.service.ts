@@ -8,6 +8,7 @@ import HttpService from './http.service';
 
 import { createUserModel, UserModel } from '../models/user.model';
 import { API_KEYS, API_PARAM_KEYS } from '~shared/keys';
+import { setLoadingCallback } from '~store/update-store.actions';
 
 type ResponseMessage = { message: string };
 
@@ -34,6 +35,7 @@ class UserService extends HttpService {
 	}
 
 	async login(user: IUserRegisterDto): Promise<UserModel | null> {
+		setLoadingCallback(true);
 		try {
 			const { data } = await this.post(
 				{
@@ -47,6 +49,7 @@ class UserService extends HttpService {
 				return null;
 			}
 
+			setLoadingCallback(false);
 			return createUserModel(data as IUserResponseDto);
 		} catch (error) {
 			console.error(error);
@@ -54,6 +57,8 @@ class UserService extends HttpService {
 	}
 
 	async register(user: IUserRegisterDto): Promise<ResponseMessage> {
+		setLoadingCallback(true);
+
 		try {
 			const { data } = await this.post(
 				{
@@ -62,6 +67,8 @@ class UserService extends HttpService {
 				},
 				this.withoutAuth,
 			);
+
+			setLoadingCallback(false);
 
 			return data as ResponseMessage;
 		} catch (error) {
@@ -73,6 +80,7 @@ class UserService extends HttpService {
 		userId: number,
 		userBody: Partial<UserModel>,
 	): Promise<UserModel | null> {
+		setLoadingCallback(true);
 		try {
 			const { data } = await this.put({
 				url: `${API_KEYS.USER_ROOT}${userId}`,
@@ -83,6 +91,7 @@ class UserService extends HttpService {
 				return null;
 			}
 
+			setLoadingCallback(false);
 			return createUserModel(data as IUserResponseDto);
 		} catch (error) {
 			console.error(error);
@@ -92,6 +101,7 @@ class UserService extends HttpService {
 	async passwordReset(
 		user: Pick<IUserRegisterDto, 'email'>,
 	): Promise<ResponseMessage | null> {
+		setLoadingCallback(true);
 		try {
 			const { data } = await this.post(
 				{
@@ -105,6 +115,7 @@ class UserService extends HttpService {
 				return null;
 			}
 
+			setLoadingCallback(false);
 			return data as ResponseMessage;
 		} catch (error) {
 			console.error(error);
@@ -116,6 +127,7 @@ class UserService extends HttpService {
 		token,
 		password = null,
 	}: IResetUserData): Promise<ResponseMessage | null> {
+		setLoadingCallback(true);
 		try {
 			const additional = password
 				? `&${API_PARAM_KEYS.PASSWORD}${password}`
@@ -130,9 +142,11 @@ class UserService extends HttpService {
 				false,
 			);
 
+			setLoadingCallback(false);
 			return data as ResponseMessage;
 		} catch (error) {
 			console.error(error);
+			setLoadingCallback(false);
 		}
 	}
 }
