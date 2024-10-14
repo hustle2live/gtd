@@ -106,7 +106,6 @@ const App = (): React.ReactNode => {
 									isAuthed={logedIn}
 									redirectPath={ROUTER_KEYS.ROOT}
 								>
-									<Header hideProfile={true} />
 									<ProfilePage />
 								</ProtectedRoute>
 							),

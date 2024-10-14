@@ -23,7 +23,8 @@ import {
 
 import Image from '../../assets/Bender-1.jpg';
 import { flexCenter, flexColumn } from '../root-page/root.styles';
-import { themeColors } from '~shared/styles';
+import { BackgroundWorkspace } from '../background/background';
+import { Header } from '../header/header.component';
 
 const ProfilePage = (): JSX.Element => {
 	const { userName, userEmail, userId, updateUser } = todosStore(
@@ -55,6 +56,9 @@ const ProfilePage = (): JSX.Element => {
 
 	return (
 		<div className={`${flexColumn} ${flexCenter}`}>
+			<Header hideProfileButton={true} />
+			<BackgroundWorkspace />
+
 			<Card
 				className={wrapperStyles}
 				interactive={true}

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table2, Column, Cell } from '@blueprintjs/table';
 
 import { todoService } from '~/api/services/todo.service';

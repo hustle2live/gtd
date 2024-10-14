@@ -9,15 +9,19 @@ import { todosStore } from '~store/todos.store';
 import { useNavigate } from 'react-router-dom';
 import { ROUTER_KEYS } from '~shared/keys';
 
-const Header: React.FunctionComponent<{ hideProfile?: boolean }> = ({
-	hideProfile = false,
+type HProps = {
+	hideProfileButton?: boolean;
+};
+
+const Header: React.FunctionComponent<HProps> = ({
+	hideProfileButton = false,
 }) => {
 	const logOut = todosStore((state) => state.onLogout);
 	const navigate = useNavigate();
 
 	return (
 		<div className={headerWrapperStyles}>
-			{hideProfile ? (
+			{hideProfileButton ? (
 				<span></span>
 			) : (
 				<Button

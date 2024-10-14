@@ -9,6 +9,7 @@ import { Button, Intent } from '@blueprintjs/core';
 import * as BPIcons from '@blueprintjs/icons';
 import { addTodoButton } from './dashboard.styles';
 import Loader from '../loader/loader.component';
+import { BackgroundWorkspace } from '../background/background';
 
 type LoadProps = {
 	isLoading: boolean;
@@ -28,6 +29,7 @@ const Dashboard: React.FunctionComponent<Props> = ({
 
 	return (
 		<div className={`${flexColumn} ${flexCenter}`}>
+			<BackgroundWorkspace />
 			<Header />
 			<TodoContainer data={myTodos} fetchTodos={getTodosHandler} />;
 			<Button

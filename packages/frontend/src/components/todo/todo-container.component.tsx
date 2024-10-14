@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TodoTable from './table-view/todo-table.component';
 
 import { ITodoType } from '~shared/types/todo/todo.types';

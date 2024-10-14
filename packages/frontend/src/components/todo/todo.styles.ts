@@ -31,6 +31,12 @@ export const tabsContainer = css`
 		width: auto !important;
 	}
 
+	.bp5-tab,
+	.bp5-tab[aria-selected='false'] {
+		background-color: rgba(255, 255, 255, 1) !important;
+		color: #000000;
+	}
+
 	.bp5-tab[aria-selected='true'] {
 		background-color: ${themeColors.additional_light} !important;
 		color: #fff !important;

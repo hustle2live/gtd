@@ -9,6 +9,7 @@ import { buttonBack } from './todo-view.styles';
 import { Header } from '~/components/header/header.component';
 import { singleViewContainer } from './single-view.styles';
 import { showEditWrapper } from '~/components/add-todo/add-todo.controller';
+import { BackgroundWorkspace } from '~/components/background/background';
 
 const TodoSingleView: React.FunctionComponent = (): JSX.Element => {
 	const { todoId } = useParams();
@@ -27,6 +28,7 @@ const TodoSingleView: React.FunctionComponent = (): JSX.Element => {
 
 	return (
 		<>
+			<BackgroundWorkspace />
 			<Header />
 			<div className={singleViewContainer}>
 				<TodoViewElement
