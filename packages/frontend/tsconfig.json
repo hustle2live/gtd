@@ -72,6 +72,12 @@
 			],
 			"~add-todo/*": [
 				"src/components/add-todo/*"
+			],
+			"~bg/*": [
+				"src/assets/bg/*"
+			],
+			"~background/*": [
+				"src/components/background/*"
 			]
 		}
 	},

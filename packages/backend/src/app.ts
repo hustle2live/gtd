@@ -7,7 +7,7 @@ import AppRouter from './routes';
 
 const port = process.env.PORT || 3030;
 
-const allowAllConnections = process.env.ALLOW_ALL_CORS || false;
+const allowAllConnections = process.env.ALLOW_ALL_CORS || true;
 
 const app: Express = express();
 

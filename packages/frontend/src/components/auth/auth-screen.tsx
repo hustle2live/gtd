@@ -16,6 +16,7 @@ import { AimpointsTarget } from '@blueprintjs/icons';
 import { themeColors } from '~shared/styles';
 import { headerMainLink } from '../header/header-main-link.styles';
 import Loader from '../loader/loader.component';
+import { BackgroundStripes } from '../background/background';
 
 type LoadProps = {
 	isLoading: boolean;
@@ -98,6 +99,7 @@ const AuthScreen: React.FunctionComponent<LoadProps> = ({
 	return (
 		<>
 			<div className={authDivWrapper}>
+				<BackgroundStripes />
 				{isLoading && <Loader />}
 				<section className={authFormSection}>
 					{setFormScreen(pathname)}

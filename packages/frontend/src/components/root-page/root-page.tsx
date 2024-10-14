@@ -12,6 +12,7 @@ import {
 import { DashboardLink } from '../dashboard/dashboard-link.component';
 
 import Loader from '../loader/loader.component';
+import { BackgroundStripes } from '../background/background';
 
 type RootProps = {
 	isLoading: boolean;
@@ -24,6 +25,7 @@ const RootPage: React.FunctionComponent<RootProps> = ({
 
 	return (
 		<div className={rootWrapper}>
+			<BackgroundStripes />
 			{isLoading && <Loader />}
 			<DashboardLink />
 			<div>
