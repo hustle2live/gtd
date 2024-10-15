@@ -1,11 +1,11 @@
 import axios, { AxiosResponse, AxiosRequestConfig, AxiosStatic } from 'axios';
-import AuthService, { authService } from './auth.service';
+import { authService } from './auth.service';
 
 class HttpService {
 	baseUrl: string;
 	fetchingService: AxiosStatic;
 	apiVersion: string;
-	authService: AuthService;
+	authService = authService;
 
 	constructor(
 		baseUrl = process.env.SERVER_URL,
@@ -15,7 +15,6 @@ class HttpService {
 		this.baseUrl = baseUrl;
 		this.fetchingService = fetchingService;
 		this.apiVersion = apiVersion;
-		this.authService = authService;
 	}
 
 	private getFullApiUrl(url: string): string {

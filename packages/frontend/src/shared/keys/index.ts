@@ -20,6 +20,7 @@ export const STORAGE_KEYS = Object.freeze({
 });
 
 export const API_KEYS = {
+	ROOT: '/',
 	TODOS_ROOT: 'todos/',
 	TODOS_ALL: 'todos/all/',
 	USER_ROOT: 'user/',

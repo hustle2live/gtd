@@ -151,7 +151,7 @@ export const TodoContainer: React.FunctionComponent<Props> = ({
 						leftIcon={
 							<Search
 								className="search-icon"
-								onClick={handleTabsSelector}
+								onClick={() => handleTabsSelector()}
 							/>
 						}
 						id="search"

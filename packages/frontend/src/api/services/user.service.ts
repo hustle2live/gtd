@@ -18,6 +18,23 @@ class UserService extends HttpService {
 		super();
 	}
 
+	async init(): Promise<void> {
+		try {
+			const { data } = await this.get(
+				{
+					url: '',
+				},
+				this.withoutAuth,
+			);
+
+			console.log(data);
+
+			return;
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
 	async getUsers(): Promise<IUserResponseDto[] | null> {
 		try {
 			const { data } = await this.get({
@@ -139,7 +156,7 @@ class UserService extends HttpService {
 				{
 					url: `${endpoint}?${API_PARAM_KEYS.TOKEN}${token}&${API_PARAM_KEYS.EMAIL}${email}${additional}`,
 				},
-				false,
+				this.withoutAuth,
 			);
 
 			setLoadingCallback(false);

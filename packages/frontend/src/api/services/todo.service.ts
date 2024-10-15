@@ -22,10 +22,9 @@ type TDataResponse = {
 
 class TodoService extends HttpService {
 	userId = getUserId();
-	filters: string;
+	filters = '';
 	constructor() {
 		super();
-		this.filters = '';
 	}
 
 	addFilterParams({ search, status, page, perPage }: FilterType): string {

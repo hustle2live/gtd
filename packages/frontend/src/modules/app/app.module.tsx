@@ -12,9 +12,11 @@ import { ProtectedRoute } from '~router/protected-route.util';
 import { AuthConfirmPage } from '~/components/auth/auth-confirm.component';
 import { ProfilePage } from '~/components/profile/profile-page.component';
 import { FilterType } from '~shared/types/filters/filters-type';
+import AuthService, { authService } from '~/api/services/auth.service';
+import { userService } from '~/api/services/user.service';
 
 const App = (): React.ReactNode => {
-	const { isAuthorized, userId, loading, setLoading } = todosStore(
+	const { isAuthorized, loading, setLoading } = todosStore(
 		({ isAuthorized, userId, loading, setLoading }) => {
 			return { isAuthorized, userId, loading, setLoading };
 		},
@@ -37,8 +39,9 @@ const App = (): React.ReactNode => {
 	);
 
 	useEffect((): void => {
+		userService.init();
 		setTimeout(() => setLoading(false), 1000);
-	}, [requestTodos]);
+	}, []);
 
 	return (
 		<RouterProvider

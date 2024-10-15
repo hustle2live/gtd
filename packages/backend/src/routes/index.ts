@@ -7,7 +7,7 @@ class AppRouter {
 	constructor(private app: Application) {}
 
 	init(): void {
-		this.app.get('/', (_req, res) => {
+		this.app.get('/api', (_req, res) => {
 			res.send('API Running');
 		});
 		this.app.use('/api/todos', todosRouter);
