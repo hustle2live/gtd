@@ -3,11 +3,10 @@ import { todosStore } from '~store/todos.store';
 import { TodoContainer } from '../todo/todo-container.component';
 import { FilterType } from '~shared/types/filters/filters-type';
 import { Header } from '../header/header.component';
-import { flexCenter, flexColumn } from '../root-page/root.styles';
 import { showEditWrapper } from '../add-todo/add-todo.controller';
 import { Button, Intent } from '@blueprintjs/core';
 import * as BPIcons from '@blueprintjs/icons';
-import { addTodoButton } from './dashboard.styles';
+import { addTodoButton, dashboardWrapper } from './dashboard.styles';
 import Loader from '../loader/loader.component';
 import { BackgroundWorkspace } from '../background/background';
 
@@ -28,7 +27,8 @@ const Dashboard: React.FunctionComponent<Props> = ({
 	const [editTodoId, setEditTodoId] = useState<number | null>(null);
 
 	return (
-		<div className={`${flexColumn} ${flexCenter}`}>
+		<div className={dashboardWrapper}>
+			{isLoading && <Loader centered={true} />}
 			<BackgroundWorkspace />
 			<Header />
 			<TodoContainer data={myTodos} fetchTodos={getTodosHandler} />;
@@ -39,7 +39,6 @@ const Dashboard: React.FunctionComponent<Props> = ({
 				onClick={() => setEditTodoId(999)}
 			/>
 			{showEditWrapper(editTodoId, setEditTodoId, true)}
-			{isLoading && <Loader />}
 		</div>
 	);
 };

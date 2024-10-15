@@ -31,9 +31,7 @@ const App = (): React.ReactNode => {
 
 	const requestTodos = useCallback(
 		async (filters: FilterType = null): Promise<void> => {
-			setLoading(true);
 			await todoService.getTodos(userId, filters);
-			// setLoading(false);
 		},
 		[],
 	);
@@ -106,7 +104,7 @@ const App = (): React.ReactNode => {
 									isAuthed={logedIn}
 									redirectPath={ROUTER_KEYS.ROOT}
 								>
-									<ProfilePage />
+									<ProfilePage isLoading={loading} />
 								</ProtectedRoute>
 							),
 						},

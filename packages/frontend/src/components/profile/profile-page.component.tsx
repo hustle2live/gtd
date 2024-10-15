@@ -25,8 +25,15 @@ import Image from '../../assets/Bender-1.jpg';
 import { flexCenter, flexColumn } from '../root-page/root.styles';
 import { BackgroundWorkspace } from '../background/background';
 import { Header } from '../header/header.component';
+import Loader from '../loader/loader.component';
 
-const ProfilePage = (): JSX.Element => {
+type LoadProps = {
+	isLoading: boolean;
+};
+
+const ProfilePage: React.FunctionComponent<LoadProps> = ({
+	isLoading,
+}): JSX.Element => {
 	const { userName, userEmail, userId, updateUser } = todosStore(
 		({ userName, userEmail, userId, updateUser }) => {
 			return { userName, userEmail, userId, updateUser };
@@ -56,6 +63,7 @@ const ProfilePage = (): JSX.Element => {
 
 	return (
 		<div className={`${flexColumn} ${flexCenter}`}>
+			{isLoading && <Loader centered={true} />}
 			<Header hideProfileButton={true} />
 			<BackgroundWorkspace />
 

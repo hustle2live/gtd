@@ -1,6 +1,13 @@
 import { css } from '@emotion/css';
 import { themeColors } from '~shared/styles';
 
+export const dashboardWrapper = css`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: 100vh;
+`;
+
 export const addTodoButton = css`
 	position: absolute;
 	right: 12%;

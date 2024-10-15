@@ -1,8 +1,14 @@
 import * as React from 'react';
-import { loaderStyles } from './loader.styles';
+import { loaderCentered, loaderStyles } from './loader.styles';
 
-const Loader: React.FunctionComponent = () => {
-	return <div className={loaderStyles}></div>;
+type Props = {
+	centered?: boolean;
+};
+
+const Loader: React.FunctionComponent<Props> = ({ centered }: Props) => {
+	const addStyles = centered ? loaderCentered : '';
+
+	return <div className={`${loaderStyles} ${addStyles}`}></div>;
 };
 
 export default Loader;

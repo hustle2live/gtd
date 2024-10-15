@@ -27,7 +27,6 @@ class TodoService extends HttpService {
 	}
 
 	addFilterParams({ search, status, page, perPage }: FilterType): string {
-		setLoadingCallback(true);
 		try {
 			this.filters = '';
 			if (search) {
@@ -39,7 +38,6 @@ class TodoService extends HttpService {
 			if (page && perPage) {
 				this.filters += `&${API_PARAM_KEYS.PAGE}${page}&${API_PARAM_KEYS.PER_PAGE}${perPage}`;
 			}
-			setLoadingCallback(false);
 			return this.filters;
 		} catch (error) {
 			console.error(error);
@@ -65,6 +63,7 @@ class TodoService extends HttpService {
 			}
 
 			setLoadingCallback(false);
+
 			return { todos, totalCount };
 		} catch (error) {
 			console.error(error);

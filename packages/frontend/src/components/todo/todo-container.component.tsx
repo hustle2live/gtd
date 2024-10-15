@@ -54,13 +54,15 @@ export const TodoContainer: React.FunctionComponent<Props> = ({
 	};
 
 	const handleTabsSelector = (): void => {
+		console.log('filters : ', filters);
 		fetchTodos(filters);
 	};
 
 	const handleSearch = (value = search): (() => void) => {
 		const timeoutId = setTimeout(() => {
-			filters.search = value;
+			// filters.search = value;
 			handleTabsSelector();
+			// fetchTodos(filters);
 		}, 1300);
 
 		return () => clearTimeout(timeoutId);
