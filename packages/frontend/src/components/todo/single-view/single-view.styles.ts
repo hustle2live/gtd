@@ -1,4 +1,5 @@
 import { css } from '@emotion/css';
+import { Sizes } from '~shared/constants/screen-queries';
 
 export const singleViewContainer = css`
 	display: flex;
@@ -9,6 +10,24 @@ export const singleViewContainer = css`
 	justify-content: center;
 	align-items: left;
 	padding: 20px;
+	margin: 0 auto;
+	max-width: ${Sizes.laptopLarMin}px;
+
+	@media screen and (max-width: 1460px) {
+		max-width: ${Sizes.laptopMedMin}px;
+	}
+
+	@media screen and (max-width: 1020px) {
+		max-width: ${Sizes.tabletMax}px;
+	}
+
+	@media screen and (max-width: 768px) {
+		max-width: 80%;
+	}
+
+	@media screen and (max-width: 460px) {
+		max-width: 100%;
+	}
 `;
 
 export const stylesWrapper = css`
