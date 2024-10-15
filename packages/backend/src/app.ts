@@ -7,7 +7,7 @@ import AppRouter from './routes';
 
 const port = process.env.PORT || 3030;
 
-const allowAllConnections = process.env.ALLOW_ALL_CORS || true;
+const allowAllConnections = process.env.ALLOW_ALL_CORS || false;
 
 const app: Express = express();
 
@@ -29,5 +29,7 @@ if (allowAllConnections) {
 router.init();
 
 app.listen(port, () => {
-	console.log(`Server is listening on port ${port}`);
+	console.log(
+		`Server is listening on port ${port} , \n _allow all* CORS: ${allowAllConnections}`,
+	);
 });
