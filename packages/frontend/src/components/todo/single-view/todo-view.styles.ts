@@ -10,7 +10,7 @@ const wrapper = css`
 	padding: 20px;
 	background-color: ${themeColors.background};
 	width: 260px;
-	height: 200px;
+	height: 320px;
 	position: relative;
 
 	&.singleView {

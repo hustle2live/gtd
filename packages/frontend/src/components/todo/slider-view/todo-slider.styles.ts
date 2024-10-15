@@ -41,10 +41,10 @@ export const todoItemDiv = css`
 export const sliderButtons = css`
 	position: absolute;
 	top: 50%;
-	width: 50px;
-	height: 50px;
+	width: 40px;
+	height: 40px;
 	left: 5%;
-	opacity: 0.6;
+	opacity: 0.45;
 	border-radius: 2px !important;
 	z-index: 10;
 
