@@ -8,8 +8,6 @@ export const sliderWrapper = css`
 	position: relative;
 	overflow: hidden;
 	height: 80vh;
-	// width: 700px;
-	// width: auto;
 	max-height: 90vh;
 	max-width: 100vw;
 	width: 100vw;
@@ -24,7 +22,6 @@ export const ulListWrapper = (posX = 0, gap = 40): string => css`
 	flex-direction: row;
 	height: auto;
 	width: 100%;
-	// width: auto;
 	padding: 0 40px;
 	gap: ${gap}px;
 	transition: all 1s;
@@ -46,12 +43,20 @@ export const sliderButtons = css`
 	top: 50%;
 	width: 50px;
 	height: 50px;
-	left: 0;
+	left: 5%;
+	opacity: 0.6;
+	border-radius: 2px !important;
 	z-index: 10;
+
+	&:hover,
+	&:active {
+		opacity: 1;
+		background-color: ${themeColors.additional};
+	}
 `;
 
 export const buttonRight = css`
 	${sliderButtons}
 	left: unset;
-	right: 0;
+	right: 5%;
 `;
