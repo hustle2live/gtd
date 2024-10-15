@@ -31,7 +31,7 @@ const App = (): React.ReactNode => {
 
 	const requestTodos = useCallback(
 		async (filters: FilterType = null): Promise<void> => {
-			await todoService.getTodos(userId, filters);
+			await todoService.getTodos(filters);
 		},
 		[],
 	);

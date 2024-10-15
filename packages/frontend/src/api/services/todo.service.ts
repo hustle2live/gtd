@@ -10,6 +10,7 @@ import { API_KEYS, API_PARAM_KEYS } from '~shared/keys';
 import {
 	addTodoCallback,
 	deleteTodoCallback,
+	getUserId,
 	setLoadingCallback,
 	updateStoreCallback,
 	updateTodoCallback,
@@ -20,6 +21,7 @@ type TDataResponse = {
 };
 
 class TodoService extends HttpService {
+	userId = getUserId();
 	filters: string;
 	constructor() {
 		super();
@@ -45,18 +47,22 @@ class TodoService extends HttpService {
 	}
 
 	async getTodos(
-		userId: number,
 		filters?: FilterType | null,
 	): Promise<{ todos: ITodoType[]; totalCount: number } | null> {
 		setLoadingCallback(true);
 		try {
 			const filterParams = filters ? this.addFilterParams(filters) : '';
+			const userIdParam = this.userId
+				? `${API_PARAM_KEYS.USER_ID}${this.userId}`
+				: '';
 
 			const { data } = (await this.get({
-				url: `${API_KEYS.TODOS_ALL}?${API_PARAM_KEYS.USER_ID}${userId}${filterParams}`,
+				url: `${API_KEYS.TODOS_ALL}?${userIdParam}${filterParams}`,
 			})) as TDataResponse;
 
 			const { todos, totalCount } = data;
+
+			console.log(todos);
 
 			if (Array.isArray(todos)) {
 				updateStoreCallback(todos, totalCount);

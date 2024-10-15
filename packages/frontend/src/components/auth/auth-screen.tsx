@@ -24,6 +24,7 @@ type LoadProps = {
 
 const Heading = (): JSX.Element => {
 	const navigate = useNavigate();
+
 	return (
 		<div className={headingAuthWrapper}>
 			<Button

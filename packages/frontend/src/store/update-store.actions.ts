@@ -23,3 +23,7 @@ export const deleteTodoCallback = (todoId: number): void => {
 export const setLoadingCallback = (value: boolean): void => {
 	unstable_batchedUpdates(() => todosStore.getState().setLoading(value));
 };
+
+export const getUserId = (): number | null => {
+	return unstable_batchedUpdates(() => todosStore.getState().userId);
+};

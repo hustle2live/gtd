@@ -55,6 +55,14 @@ export class TodoController {
 
 		const totalCount = await this.todoService.countAll(filters);
 
+		if (totalCount === 0) {
+			res.status(HttpCode.OK).send({
+				todos: [],
+				totalCount: totalCount,
+			});
+			return;
+		}
+
 		if (page && perPage) {
 			const onPageItems = Number(perPage);
 			const toSkipItems = (Number(page) - 1) * onPageItems;

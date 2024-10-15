@@ -28,9 +28,13 @@ class TodoService {
 	}
 
 	async countAll(filters: TodoFilters): Promise<number> {
-		return await this.db.todo.count({
-			where: { ...filters },
-		});
+		try {
+			return await this.db.todo.count({
+				where: { ...filters },
+			});
+		} catch (error) {
+			return 0;
+		}
 	}
 
 	async findAllFiltered(
