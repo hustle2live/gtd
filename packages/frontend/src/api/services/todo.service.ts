@@ -62,8 +62,6 @@ class TodoService extends HttpService {
 
 			const { todos, totalCount } = data;
 
-			console.log(todos);
-
 			if (Array.isArray(todos)) {
 				updateStoreCallback(todos, totalCount);
 			}
