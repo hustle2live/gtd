@@ -10,6 +10,13 @@ import { Header } from '~/components/header/header.component';
 import { singleViewContainer } from './single-view.styles';
 import { showEditWrapper } from '~/components/add-todo/add-todo.controller';
 import { BackgroundWorkspace } from '~/components/background/background';
+import { dashboardWrapper } from '~/components/dashboard/dashboard.styles';
+import {
+	containerFull,
+	flexCenter,
+	flexColumn,
+	relative,
+} from '~/components/root-page/root.styles';
 
 const TodoSingleView: React.FunctionComponent = (): JSX.Element => {
 	const { todoId } = useParams();
@@ -27,7 +34,7 @@ const TodoSingleView: React.FunctionComponent = (): JSX.Element => {
 	}
 
 	return (
-		<>
+		<div className={containerFull}>
 			<BackgroundWorkspace />
 			<Header />
 			<div className={singleViewContainer}>
@@ -47,7 +54,7 @@ const TodoSingleView: React.FunctionComponent = (): JSX.Element => {
 				</div>
 				{showEditWrapper(editTodoId, setEditTodoId)}
 			</div>
-		</>
+		</div>
 	);
 };
 

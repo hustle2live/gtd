@@ -1,6 +1,11 @@
 import { css } from '@emotion/css';
 import { themeColors } from '~shared/styles';
 
+export const containerFull = css`
+	min-width: 100vw;
+	min-height: 100vh;
+`;
+
 export const navigationLink = css`
 	text-decoration: underline;
 	color: ${themeColors.additional};

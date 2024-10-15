@@ -53,6 +53,8 @@ export const BGWorkSpace = (
 		background-repeat: no-repeat;
 		background-size: cover;
 		z-index: -1;
+		left: 0;
+		top: 0;
 
 		.gradient {
 			position: absolute;

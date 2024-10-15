@@ -102,7 +102,7 @@ export const mockStyles = {
 		position: relative;
 		max-width: 100%;
 		min-height: 70%;
-		max-height: 70vh;
+		max-height: 90%;
 
 		li {
 			width: fit-content;
@@ -160,6 +160,7 @@ export const stylesDefault = {
 		display: flex;
 		justify-content: space-between;
 		gap: 10px;
+		background: transparent;
 	`,
 	list: css`
 		margin-top: 0px;
@@ -226,6 +227,7 @@ export const stylesMobile = {
 		flex-wrap: wrap;
 		background: #ffffff;
 		z-index: 99;
+		background: transparent;
 
 		@media screen and (max-width: 460px) {
 			flex-direction: column-reverse;
