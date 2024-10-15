@@ -28,7 +28,7 @@ const TodoSlider: React.FunctionComponent<TProps> = ({
 	const cardWidth = 400;
 	const gap = 40;
 
-	const min = cardWidth / 2 - gap * 2;
+	const min = window.innerWidth / 2 - (cardWidth / 2 + gap) || 0;
 	const max = !data?.length ? 1 : -data.length * (cardWidth - gap / 2);
 
 	const [posX, setPosX] = useState(min);
@@ -47,7 +47,7 @@ const TodoSlider: React.FunctionComponent<TProps> = ({
 			<Button
 				className={sliderButtons}
 				icon={<ArrowLeft />}
-				onClick={() => changePosition(false)}
+				onClick={() => changePosition()}
 			/>
 			<Button
 				className={buttonRight}

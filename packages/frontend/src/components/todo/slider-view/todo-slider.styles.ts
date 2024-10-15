@@ -8,9 +8,11 @@ export const sliderWrapper = css`
 	position: relative;
 	overflow: hidden;
 	height: 80vh;
-	width: 700px;
+	// width: 700px;
+	// width: auto;
 	max-height: 90vh;
-	max-width: 90vw;
+	max-width: 100vw;
+	width: 100vw;
 	margin: 0;
 	transition: all 1s;
 `;
@@ -20,9 +22,9 @@ export const ulListWrapper = (posX = 0, gap = 40): string => css`
 	box-sizing: border-box;
 	flex-wrap: nowrap;
 	flex-direction: row;
-	width: 100%;
 	height: auto;
-	width: auto;
+	width: 100%;
+	// width: auto;
 	padding: 0 40px;
 	gap: ${gap}px;
 	transition: all 1s;
