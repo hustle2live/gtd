@@ -55,6 +55,7 @@ export const rootWrapper = css`
 	justify-content: center;
 	width: 100%;
 	min-height: 100vh;
+	padding-bottom: 10vh;
 	& p {
 		margin: 10px 0 0;
 	}

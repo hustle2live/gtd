@@ -78,6 +78,9 @@
 			],
 			"~background/*": [
 				"src/components/background/*"
+			],
+			"~alert/*": [
+				"src/components/alert/*"
 			]
 		}
 	},

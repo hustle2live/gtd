@@ -12,8 +12,8 @@ type ScreenDetectType = {
 };
 
 const Sizes = {
-	mobileMax: 426,
-	tabletMin: 426,
+	mobileMax: 489,
+	tabletMin: 490,
 	tabletMax: 768,
 	laptopMin: 769,
 	laptopMedMin: 1020,

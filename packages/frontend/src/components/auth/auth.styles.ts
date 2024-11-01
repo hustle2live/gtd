@@ -1,5 +1,4 @@
 import { css } from '@emotion/css';
-import { themeColors } from '~shared/styles';
 
 export const authDivWrapper = css`
 	position: relative;
