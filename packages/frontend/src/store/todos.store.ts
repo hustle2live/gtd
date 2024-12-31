@@ -14,6 +14,7 @@ type TInitialState = {
 	userEmail: string | null;
 	isAuthorized: boolean;
 	loading: boolean;
+	serverConection: boolean;
 };
 export interface ITodosStore extends TInitialState {
 	updateStore: (data: ITodoType[], total: number) => void;
@@ -24,6 +25,7 @@ export interface ITodosStore extends TInitialState {
 	updateUser: (user: Pick<UserModel, 'email' | 'name'>) => void;
 	onLogout: () => void;
 	setLoading: (value: boolean) => void;
+	setServerConection: (value: boolean) => void;
 }
 
 const initialState: TInitialState = {
@@ -35,6 +37,7 @@ const initialState: TInitialState = {
 	userName: null,
 	userEmail: null,
 	loading: true,
+	serverConection: false,
 };
 
 export const todosStore = create<ITodosStore>()(
@@ -84,6 +87,11 @@ export const todosStore = create<ITodosStore>()(
 			setLoading: (value): void => {
 				set(() => {
 					return { loading: value };
+				});
+			},
+			setServerConection: (value): void => {
+				set(() => {
+					return { serverConection: value };
 				});
 			},
 		}),

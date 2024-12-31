@@ -42,3 +42,5 @@ export const API_PARAM_KEYS = {
 	TOKEN: 'token=',
 	PASSWORD: 'password=',
 };
+
+export const SERVER_INIT_RESPONSE = 'API Running';

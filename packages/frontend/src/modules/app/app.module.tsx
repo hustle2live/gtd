@@ -3,7 +3,6 @@ import { todoService } from '~/api/services/todo.service';
 import { RouterProvider } from '~router/router-provider';
 import { todosStore } from '~store/todos.store';
 import { ROUTER_KEYS } from '~shared/keys';
-import { Header } from '~/components/header/header.component';
 import { RootPage } from '~/components/root-page/root-page';
 import { AuthScreen } from '~/components/auth/auth-screen';
 import { Dashboard } from '~/components/dashboard/dashboard.component';
@@ -12,7 +11,6 @@ import { ProtectedRoute } from '~router/protected-route.util';
 import { AuthConfirmPage } from '~/components/auth/auth-confirm.component';
 import { ProfilePage } from '~/components/profile/profile-page.component';
 import { FilterType } from '~shared/types/filters/filters-type';
-import AuthService, { authService } from '~/api/services/auth.service';
 import { userService } from '~/api/services/user.service';
 
 const App = (): React.ReactNode => {
@@ -21,15 +19,9 @@ const App = (): React.ReactNode => {
 			return { isAuthorized, userId, loading, setLoading };
 		},
 	);
+	const serverIsConnected = todosStore((state) => state.serverConection);
 
 	const [logedIn, setLogedIn] = useState(isAuthorized);
-
-	useEffect(() => {
-		setLogedIn(isAuthorized);
-		if (isAuthorized) {
-			requestTodos();
-		}
-	}, [isAuthorized]);
 
 	const requestTodos = useCallback(
 		async (filters: FilterType = null): Promise<void> => {
@@ -38,9 +30,18 @@ const App = (): React.ReactNode => {
 		[],
 	);
 
+	useEffect(() => {
+		setLogedIn(isAuthorized);
+		if (isAuthorized) {
+			requestTodos();
+		}
+	}, [isAuthorized]);
+
 	useEffect((): void => {
-		userService.init();
-		setTimeout(() => setLoading(false), 1000);
+		if (!serverIsConnected) {
+			userService.init();
+			setTimeout(() => setLoading(false), 1000);
+		}
 	}, []);
 
 	return (

@@ -7,8 +7,11 @@ import {
 import HttpService from './http.service';
 
 import { createUserModel, UserModel } from '../models/user.model';
-import { API_KEYS, API_PARAM_KEYS } from '~shared/keys';
-import { setLoadingCallback } from '~store/update-store.actions';
+import { API_KEYS, API_PARAM_KEYS, SERVER_INIT_RESPONSE } from '~shared/keys';
+import {
+	setLoadingCallback,
+	updateConnection,
+} from '~store/update-store.actions';
 
 type ResponseMessage = { message: string };
 
@@ -20,16 +23,13 @@ class UserService extends HttpService {
 
 	async init(): Promise<void> {
 		try {
-			const { data } = await this.get(
-				{
-					url: '',
-				},
-				this.withoutAuth,
-			);
-
-			console.log(data);
-
-			return;
+			const { data } = await this.get({ url: '' }, this.withoutAuth);
+			if (data === SERVER_INIT_RESPONSE) {
+				updateConnection(true);
+				console.log(data);
+				console.log('Server is connected');
+			}
+			throw Error('Server does not answer');
 		} catch (error) {
 			console.error(error);
 		}
@@ -75,7 +75,6 @@ class UserService extends HttpService {
 
 	async register(user: IUserRegisterDto): Promise<ResponseMessage> {
 		setLoadingCallback(true);
-
 		try {
 			const { data } = await this.post(
 				{

@@ -9,6 +9,13 @@ export const alert = css`
 	top: 10%;
 	left: 50vw;
 	transform: translateX(-50%);
+	.timer {
+		display: inline-block;
+		width: 65%;
+		text-align: left;
+		margin: 0 auto;
+		margin-left: 35%;
+	}
 	p {
 		max-width: 84%;
 		text-align: left;
@@ -27,9 +34,9 @@ export const alert = css`
 
 export const closebtn = css`
 	position: absolute;
-	right: 0;
-	top: 0;
-	color: black;
+	right: -40px;
+	top: -40px;
+	color: red;
 	font-size: 34px;
 	line-height: 34px;
 	cursor: pointer;

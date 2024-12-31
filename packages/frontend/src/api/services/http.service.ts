@@ -37,10 +37,7 @@ class HttpService {
 		return configWithoutDataAndUrl;
 	}
 
-	get<T>(
-		config: AxiosRequestConfig,
-		withAuth = true,
-	): Promise<AxiosResponse<T>> {
+	get<T>(config: AxiosRequestConfig, withAuth = true,): Promise<AxiosResponse<T>> {
 		if (withAuth) {
 			const authHeaders = this.populateTokenToHeaderConfig();
 			config.headers = {

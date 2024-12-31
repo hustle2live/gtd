@@ -2,28 +2,44 @@ import { unstable_batchedUpdates } from 'react-dom';
 import { ITodoType } from '~shared/types/todo/todo.types';
 import { todosStore } from './todos.store';
 
-export const updateStoreCallback = (data: ITodoType[], total: number): void => {
+const updateStoreCallback = (data: ITodoType[], total: number): void => {
 	unstable_batchedUpdates(() =>
 		todosStore.getState().updateStore(data, total),
 	);
 };
 
-export const addTodoCallback = (data: ITodoType): void => {
+const addTodoCallback = (data: ITodoType): void => {
 	unstable_batchedUpdates(() => todosStore.getState().addTodo(data));
 };
 
-export const updateTodoCallback = (data: ITodoType): void => {
+const updateTodoCallback = (data: ITodoType): void => {
 	unstable_batchedUpdates(() => todosStore.getState().updateTodo(data));
 };
 
-export const deleteTodoCallback = (todoId: number): void => {
+const deleteTodoCallback = (todoId: number): void => {
 	unstable_batchedUpdates(() => todosStore.getState().deleteTodo(todoId));
 };
 
-export const setLoadingCallback = (value: boolean): void => {
+const setLoadingCallback = (value: boolean): void => {
 	unstable_batchedUpdates(() => todosStore.getState().setLoading(value));
 };
 
-export const getUserId = (): number | null => {
+const getUserId = (): number | null => {
 	return unstable_batchedUpdates(() => todosStore.getState().userId);
+};
+
+const updateConnection = (value: boolean): void => {
+	unstable_batchedUpdates(() =>
+		todosStore.getState().setServerConection(value),
+	);
+};
+
+export {
+	updateStoreCallback,
+	addTodoCallback,
+	updateTodoCallback,
+	deleteTodoCallback,
+	setLoadingCallback,
+	getUserId,
+	updateConnection,
 };

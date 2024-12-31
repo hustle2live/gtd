@@ -25,19 +25,6 @@ const RootPage: React.FunctionComponent<RootProps> = ({
 	const navigate = useNavigate();
 	const [notify, setNotify] = useState(false);
 
-	const requestDelayMessage = (
-		<>
-			<p>
-				Hi and wellcome<span className="emoji">👋 </span>, <br />{' '}
-				Login/register requests <b>can be delayed by 50-60</b> seconds.
-			</p>
-			<p>
-				Free Backend Web Service spins down with inactivity. Sorry for
-				that <span className="emoji">🙄</span>.
-			</p>
-		</>
-	);
-
 	useEffect(() => {
 		setTimeout(() => {
 			setNotify(true);
@@ -48,7 +35,7 @@ const RootPage: React.FunctionComponent<RootProps> = ({
 		<div className={rootWrapper}>
 			<BackgroundStripes />
 			{isLoading && <Loader />}
-			<AlertComponent isShown={notify} text={requestDelayMessage} />
+			<AlertComponent />
 			<DashboardLink />
 			<div>
 				<p>Getting Things Reactively Done, &#128640;</p>
