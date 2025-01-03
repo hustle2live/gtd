@@ -38,8 +38,6 @@ const AlertComponent: FunctionComponent<AlertProps> = (): JSX.Element => {
 	const [timer, setTimer] = useState(59);
 	const [dot, setDot] = useState(3);
 
-	console.log('serverIsConnected ... ' + serverIsConnected);
-
 	useEffect(() => {
 		if (serverIsConnected) {
 			setTimer(-1);

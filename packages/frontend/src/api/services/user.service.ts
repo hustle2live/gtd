@@ -23,13 +23,13 @@ class UserService extends HttpService {
 
 	async init(): Promise<void> {
 		try {
+			console.log('init server connection..');
 			const { data } = await this.get({ url: '' }, this.withoutAuth);
 			if (data === SERVER_INIT_RESPONSE) {
 				updateConnection(true);
-				console.log(data);
-				console.log('Server is connected');
+			} else {
+				throw Error('Server does not answer');
 			}
-			throw Error('Server does not answer');
 		} catch (error) {
 			console.error(error);
 		}
