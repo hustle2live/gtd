@@ -4,7 +4,10 @@ import {
 	ITodoUpdateRequestDto,
 } from '~shared/types/todo/todo.types';
 
-import HttpService from './http.service';
+import newHttpService, {
+	HttpService,
+	HttpServiceInterface,
+} from './http.service';
 import { FilterType } from '~shared/types/filters/filters-type';
 import { API_KEYS, API_PARAM_KEYS } from '~shared/keys';
 import {
@@ -20,11 +23,11 @@ type TDataResponse = {
 	data: { todos: ITodoType[]; totalCount: number };
 };
 
-class TodoService extends HttpService {
+class TodoService extends newHttpService {
 	userId = getUserId();
 	filters = '';
-	constructor() {
-		super();
+	constructor(service: HttpServiceInterface) {
+		super(service);
 	}
 
 	addFilterParams({ search, status, page, perPage }: FilterType): string {
@@ -157,6 +160,6 @@ class TodoService extends HttpService {
 	}
 }
 
-const todoService = new TodoService();
+const todoService = new TodoService(new HttpService());
 
 export { todoService };

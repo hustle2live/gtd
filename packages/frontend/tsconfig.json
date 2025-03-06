@@ -52,35 +52,8 @@
 			"~mock-data/*": [
 				"src/mock-data/*"
 			],
-			"~auth/*": [
-				"src/components/auth/*"
-			],
-			"~types/*": [
-				"src/shared/types/*"
-			],
-			"~dashboard/*": [
-				"src/components/dashboard/*"
-			],
-			"~helpers/*": [
-				"src/shared/helpers/*"
-			],
-			"~profile/*": [
-				"src/components/profile/*"
-			],
-			"~constants/*": [
-				"src/shared/constants/*"
-			],
-			"~add-todo/*": [
-				"src/components/add-todo/*"
-			],
-			"~bg/*": [
-				"src/assets/bg/*"
-			],
-			"~background/*": [
-				"src/components/background/*"
-			],
-			"~alert/*": [
-				"src/components/alert/*"
+			"~logger/*": [
+				"src/api/logger/*"
 			]
 		}
 	},

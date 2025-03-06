@@ -10,33 +10,20 @@ type AlertProps = {
 	onClick?: (item: unknown) => void;
 };
 
-const requestDelayMessage = (
-	<>
-		<p>
-			Hi and wellcome<span className="emoji">👋 </span>, <br />{' '}
-			Login/register requests <b>can be delayed by 50-60</b> seconds.
-		</p>
-		<p>
-			Free Backend Web Service spins down with inactivity. Sorry for that{' '}
-			<span className="emoji">🙄</span>.
-		</p>
-	</>
-);
-const requestDelayTimer = (
-	<h4>
-		Hi<span className="emoji">👋 </span>
-		Please,
-		<br />
-		wait for the server's Woke Up :
-	</h4>
-);
+const requestDelayTimer = 'Please, wait until Server Wake Up';
 
 const AlertComponent: FunctionComponent<AlertProps> = (): JSX.Element => {
 	const serverIsConnected = todosStore((state) => state.serverConection);
-	const [isHidden, setIsHidden] = useState<boolean>(serverIsConnected);
+	const { isError, errorMessage, setError } = todosStore(
+		({ isError, errorMessage, setError }) => {
+			return { isError, errorMessage, setError };
+		},
+	);
 
+	const [isHidden, setIsHidden] = useState<boolean>(!isError);
 	const [timer, setTimer] = useState(59);
 	const [dot, setDot] = useState(3);
+	const [initialConnect, setInitialConnect] = useState(true);
 
 	useEffect(() => {
 		if (serverIsConnected) {
@@ -59,25 +46,44 @@ const AlertComponent: FunctionComponent<AlertProps> = (): JSX.Element => {
 		return () => clearInterval(myInterval);
 	}, [timer, dot]);
 
+	useEffect(() => {
+		if (isError) {
+			setIsHidden(false);
+		} else {
+			setIsHidden(true);
+		}
+	}, [isError]);
+
+	useEffect(() => {
+		if (!serverIsConnected) {
+			setError(requestDelayTimer);
+		}
+	}, []);
+
 	return (
 		<div className={`${alert} ${isHidden && hidden}`}>
 			<div>
-				{requestDelayTimer}
-				<h3>
-					{timer >= 0 ? (
-						<span className="timer">
-							{timer} sec {'.'.repeat(dot)}
-						</span>
-					) : (
-						'Connected!'
-					)}
-				</h3>
+				{errorMessage}
+				{initialConnect && (
+					<h3>
+						{timer >= 0 ? (
+							<span className="timer">
+								{timer} sec {'.'.repeat(dot)}
+							</span>
+						) : (
+							'Ready!'
+						)}
+					</h3>
+				)}
 			</div>
 
 			<button
 				className={`${closebtn} ${!serverIsConnected && hidden}`}
 				disabled={!serverIsConnected}
-				onClick={() => setIsHidden(true)}
+				onClick={() => {
+					setInitialConnect(false);
+					setError();
+				}}
 			>
 				&times;
 			</button>

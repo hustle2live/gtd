@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import * as Blueprint from '@blueprintjs/core';
 import { ROUTER_KEYS } from '~shared/keys';
@@ -13,7 +13,6 @@ import { DashboardLink } from '../dashboard/dashboard-link.component';
 
 import Loader from '../loader/loader.component';
 import { BackgroundStripes } from '../background/background';
-import { AlertComponent } from '../alert/alert.component';
 
 type RootProps = {
 	isLoading: boolean;
@@ -23,19 +22,11 @@ const RootPage: React.FunctionComponent<RootProps> = ({
 	isLoading,
 }: RootProps): JSX.Element => {
 	const navigate = useNavigate();
-	const [notify, setNotify] = useState(false);
-
-	useEffect(() => {
-		setTimeout(() => {
-			setNotify(true);
-		}, 500);
-	}, []);
 
 	return (
 		<div className={rootWrapper}>
 			<BackgroundStripes />
 			{isLoading && <Loader />}
-			<AlertComponent />
 			<DashboardLink />
 			<div>
 				<p>Getting Things Reactively Done, &#128640;</p>

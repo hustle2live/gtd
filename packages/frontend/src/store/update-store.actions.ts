@@ -34,6 +34,10 @@ const updateConnection = (value: boolean): void => {
 	);
 };
 
+const setErrorAction = (value: string = ''): void => {
+	unstable_batchedUpdates(() => todosStore.getState().setError(value));
+};
+
 export {
 	updateStoreCallback,
 	addTodoCallback,
@@ -42,4 +46,5 @@ export {
 	setLoadingCallback,
 	getUserId,
 	updateConnection,
+	setErrorAction,
 };

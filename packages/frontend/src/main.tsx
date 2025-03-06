@@ -9,11 +9,13 @@ import '@blueprintjs/core/lib/css/blueprint.css';
 import 'normalize.css/normalize.css';
 
 import './shared/styles/global-styles.css';
+import { AlertComponent } from './components/alert/alert.component';
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+ReactDOM.createRoot(document.getElementById('root')).render(
 	<PortalProvider portalClassName="my-custom-class">
 		<ThemeProvider>
 			<App />
+			<AlertComponent />
 		</ThemeProvider>
 	</PortalProvider>,
 );

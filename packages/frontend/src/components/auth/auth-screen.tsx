@@ -98,15 +98,13 @@ const AuthScreen: React.FunctionComponent<LoadProps> = ({
 	};
 
 	return (
-		<>
-			<div className={authDivWrapper}>
-				<BackgroundStripes />
-				{isLoading && <Loader />}
-				<section className={authFormSection}>
-					{setFormScreen(pathname)}
-				</section>
-			</div>
-		</>
+		<div className={authDivWrapper}>
+			<BackgroundStripes />
+			{isLoading && <Loader />}
+			<section className={authFormSection}>
+				{setFormScreen(pathname)}
+			</section>
+		</div>
 	);
 };
 

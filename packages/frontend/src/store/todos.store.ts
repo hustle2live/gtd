@@ -16,7 +16,8 @@ type TInitialState = {
 	loading: boolean;
 	serverConection: boolean;
 };
-export interface ITodosStore extends TInitialState {
+
+export interface ITodosStore extends TInitialState, IErrorState {
 	updateStore: (data: ITodoType[], total: number) => void;
 	updateTodo: (data: ITodoType) => void;
 	addTodo: (data: ITodoType) => void;
@@ -28,7 +29,13 @@ export interface ITodosStore extends TInitialState {
 	setServerConection: (value: boolean) => void;
 }
 
-const initialState: TInitialState = {
+interface IErrorState {
+	isError: boolean;
+	errorMessage: string;
+	setError: (x?: string) => void;
+}
+
+const initialState: TInitialState & Omit<IErrorState, 'setError'> = {
 	userId: null,
 	authToken: null,
 	isAuthorized: false,
@@ -38,12 +45,21 @@ const initialState: TInitialState = {
 	userEmail: null,
 	loading: true,
 	serverConection: false,
+	isError: false,
+	errorMessage: '',
 };
 
 export const todosStore = create<ITodosStore>()(
 	persist(
 		(set) => ({
 			...initialState,
+			setError: (error: string = ''): void => {
+				set(() => {
+					return error
+						? { isError: true, errorMessage: error }
+						: { isError: false, errorMessage: '' };
+				});
+			},
 			updateStore: (data, total = 0): void => {
 				set({ todos: data, totalCount: total });
 			},

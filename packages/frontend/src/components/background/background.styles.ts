@@ -14,6 +14,7 @@ export const BGStripes = css`
 	min-height: 100%;
 	background-repeat: no-repeat;
 	z-index: -1;
+	background: #d9e0e0;
 
 	&:before,
 	&:after {

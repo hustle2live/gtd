@@ -9,6 +9,7 @@ export const alert = css`
 	top: 10%;
 	left: 50vw;
 	transform: translateX(-50%);
+
 	.timer {
 		display: inline-block;
 		width: 65%;

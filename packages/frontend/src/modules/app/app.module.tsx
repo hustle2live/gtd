@@ -19,6 +19,7 @@ const App = (): React.ReactNode => {
 			return { isAuthorized, userId, loading, setLoading };
 		},
 	);
+
 	const serverIsConnected = todosStore((state) => state.serverConection);
 
 	const [logedIn, setLogedIn] = useState(isAuthorized);

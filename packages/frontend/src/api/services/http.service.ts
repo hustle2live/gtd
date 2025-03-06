@@ -1,7 +1,27 @@
 import axios, { AxiosResponse, AxiosRequestConfig, AxiosStatic } from 'axios';
 import { authService } from './auth.service';
+import newHttpService from '../logger/errorHandler.service';
 
-class HttpService {
+interface HttpServiceInterface {
+	get: <T>(
+		config: AxiosRequestConfig,
+		withAuth: boolean,
+	) => Promise<AxiosResponse<T>>;
+	put: <T>(
+		config: AxiosRequestConfig,
+		withAuth: boolean,
+	) => Promise<AxiosResponse<T>>;
+	post: <T>(
+		config: AxiosRequestConfig,
+		withAuth: boolean,
+	) => Promise<AxiosResponse<T>>;
+	delete: <T>(
+		config: AxiosRequestConfig,
+		withAuth: boolean,
+	) => Promise<AxiosResponse<T>>;
+}
+
+class HttpService implements HttpServiceInterface {
 	baseUrl: string;
 	fetchingService: AxiosStatic;
 	apiVersion: string;
@@ -37,7 +57,10 @@ class HttpService {
 		return configWithoutDataAndUrl;
 	}
 
-	get<T>(config: AxiosRequestConfig, withAuth = true,): Promise<AxiosResponse<T>> {
+	get<T>(
+		config: AxiosRequestConfig,
+		withAuth = true,
+	): Promise<AxiosResponse<T>> {
 		if (withAuth) {
 			const authHeaders = this.populateTokenToHeaderConfig();
 			config.headers = {
@@ -98,6 +121,7 @@ class HttpService {
 				...authHeaders,
 			};
 		}
+
 		return this.fetchingService.delete(
 			this.getFullApiUrl(config.url),
 			this.extractUrlAndDataFromConfig(config),
@@ -105,4 +129,6 @@ class HttpService {
 	}
 }
 
-export default HttpService;
+export { HttpServiceInterface, HttpService };
+
+export default newHttpService;
